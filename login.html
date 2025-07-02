@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تسجيل الدخول</title>
+    <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    body {
+      font-family: 'Palatino Linotype', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .mobile-frame {
+      width: 375px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative; /* مهم لشاشة التحميل */
+    }
+
+    .header {
+      background-color: #007bff;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 1.2em;
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-family: 'Lateef', serif;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .btn {
+       width: 90%;
+            margin: 15px auto;
+            display: block;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Lateef', serif;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .forgot-password a {
+      display: block;
+      margin-top: 5px;
+      font-family: 'Lateef', serif;
+      cursor: pointer;
+    }
+
+    .forgot-password a:hover {
+      color: #007bff;
+      text-decoration: underline;
+    }
+
+    .language-switch {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+      padding: 5px;
+    }
+
+    .language-switch button {
+      border: none;
+      background: none;
+      color: black;
+      cursor: pointer;
+      margin: 0 2px;
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    /* شاشة التحميل */
+    #loadingScreen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      font-family: 'Lateef', serif;      
+      color: #007bff;
+      top: 0;
+      left: 0;
+      display: none; /* مخفية افتراضي */
+    }
+  </style>
+</head>
+<body dir="rtl">
+  <div class="mobile-frame">
+      <!-- شاشة التحميل -->
+      <div id="loadingScreen">
+  <div style="text-align: center;">
+    <img src="logo.png" alt="Logo" style="width: 120px; margin-bottom: 15px;" />
+    <div id="loadingText">جاري التحميل...</div>
+  </div>
+</div>
+    <div class="header">
+      <h1 id="page-title" style="font-family:'Lateef', serif;">تسجيل الدخول</h1>
+      <div class="language-switch">
+        <button onclick="changeLanguage('en')">English</button>
+        <button onclick="changeLanguage('ar')">العربية</button>
+      </div>
+     <a href="index.html" class="back-button">←</a> 
+    </div>
+
+    <!-- تسجيل الدخول -->
+    <div id="login" class="content-section active">
+      <div class="form-group">
+        <label id="email-label" for="email">البريد الإلكتروني:</label>
+        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+      </div>
+
+      <div class="form-group">
+        <label id="password-label" for="password">كلمة المرور:</label>
+        <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+      </div>
+
+      <button id="login-button" class="btn">تسجيل الدخول</button>
+
+      <div class="forgot-password" id="forgot-password-text">
+        <a id="forgot-link" onclick="showSection('forgot')">نسيت كلمة المرور؟</a>
+        <a id="register-link" href="register.html">لا تمتلك حساب!</a>
+      </div>
+    </div>
+
+    <!-- نسيت كلمة المرور -->
+    <div id="forgot" class="content-section">
+      <div class="form-group">
+        <label id="forgot-email-label" for="forgot-email">البريد الإلكتروني:</label>
+        <input type="email" id="forgot-email" placeholder="أدخل بريدك الإلكتروني">
+      </div>
+      <button class="btn" id="forgot-submit">إرسال رابط إعادة التعيين</button>
+    </div>
+
+    <!-- إنشاء حساب -->
+    <div id="register" class="content-section">
+      <div class="form-group">
+        <label id="reg-name-label" for="reg-name">الاسم الكامل:</label>
+        <input type="text" id="reg-name" placeholder="أدخل الاسم الكامل">
+      </div>
+      <div class="form-group">
+        <label id="reg-email-label" for="reg-email">البريد الإلكتروني:</label>
+        <input type="email" id="reg-email" placeholder="أدخل بريدك الإلكتروني">
+      </div>
+      <div class="form-group">
+        <label id="reg-password-label" for="reg-password">كلمة المرور:</label>
+        <input type="password" id="reg-password" placeholder="أدخل كلمة المرور">
+      </div>
+      <button class="btn" id="register-submit">تسجيل</button>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.content-section').forEach(div => div.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    const translations = {
+      ar: {
+        dir: 'rtl',
+        title: 'تسجيل الدخول',
+        emailLabel: 'البريد الإلكتروني:',
+        emailPlaceholder: 'أدخل بريدك الإلكتروني',
+        passwordLabel: 'كلمة المرور:',
+        passwordPlaceholder: 'أدخل كلمة المرور',
+        loginButton: 'تسجيل الدخول',
+        forgotLink: 'نسيت كلمة المرور؟',
+        registerLink: '! لا تمتلك حساب',
+        forgotEmailLabel: 'البريد الإلكتروني:',
+        forgotEmailPlaceholder: 'أدخل بريدك الإلكتروني',
+        forgotSubmit: 'إرسال رابط إعادة التعيين',
+        regNameLabel: 'الاسم الكامل:',
+        regEmailLabel: 'البريد الإلكتروني:',
+        regPasswordLabel: 'كلمة المرور:',
+        regNamePlaceholder: 'أدخل الاسم الكامل',
+        regEmailPlaceholder: 'أدخل بريدك الإلكتروني',
+        regPasswordPlaceholder: 'أدخل كلمة المرور',
+        registerSubmit: 'تسجيل'
+      },
+      en: {
+        dir: 'ltr',
+        title: 'Login',
+        emailLabel: 'Email:',
+        emailPlaceholder: 'Enter your email',
+        passwordLabel: 'Password:',
+        passwordPlaceholder: 'Enter your password',
+        loginButton: 'Login',
+        forgotLink: 'Forgot Password?',
+        registerLink: "Don't have an account!",
+        forgotEmailLabel: 'Email:',
+        forgotEmailPlaceholder: 'Enter your email',
+        forgotSubmit: 'Send Reset Link',
+        regNameLabel: 'Full Name:',
+        regEmailLabel: 'Email:',
+        regPasswordLabel: 'Password:',
+        regNamePlaceholder: 'Enter full name',
+        regEmailPlaceholder: 'Enter your email',
+        regPasswordPlaceholder: 'Enter your password',
+        registerSubmit: 'Register'
+      }
+    };
+
+    // دوال خاصة بشاشة التحميل
+    function showLoadingScreen() {
+      const screen = document.getElementById('loadingScreen');
+      if (screen) screen.style.display = 'flex';
+    }
+
+    function hideLoadingScreen() {
+      const screen = document.getElementById('loadingScreen');
+      if (screen) screen.style.display = 'none';
+    }
+
+    function changeLanguage(lang) {
+      showLoadingScreen(); // عرض شاشة التحميل عند تغيير اللغة
+      localStorage.setItem('language', lang);
+      const t = translations[lang];
+      document.body.dir = t.dir;
+      document.documentElement.lang = lang;
+
+      document.getElementById('page-title').innerText = t.title;
+      document.getElementById('email-label').innerText = t.emailLabel;
+      document.getElementById('email').placeholder = t.emailPlaceholder;
+      document.getElementById('password-label').innerText = t.passwordLabel;
+      document.getElementById('password').placeholder = t.passwordPlaceholder;
+      document.getElementById('login-button').innerText = t.loginButton;
+      document.getElementById('forgot-link').innerText = t.forgotLink;
+      document.getElementById('register-link').innerText = t.registerLink;
+
+      document.getElementById('forgot-email-label').innerText = t.forgotEmailLabel;
+      document.getElementById('forgot-email').placeholder = t.forgotEmailPlaceholder;
+      document.getElementById('forgot-submit').innerText = t.forgotSubmit;
+
+      document.getElementById('reg-name-label').innerText = t.regNameLabel;
+      document.getElementById('reg-name').placeholder = t.regNamePlaceholder;
+      document.getElementById('reg-email-label').innerText = t.regEmailLabel;
+      document.getElementById('reg-email').placeholder = t.regEmailPlaceholder;
+      document.getElementById('reg-password-label').innerText = t.regPasswordLabel;
+      document.getElementById('reg-password').placeholder = t.regPasswordPlaceholder;
+      document.getElementById('register-submit').innerText = t.registerSubmit;
+
+      // تحديث نص شاشة التحميل حسب اللغة
+      const loadingText = document.getElementById('loadingText');
+      if (loadingText) {
+        loadingText.innerText = lang === 'en' ? 'Loading...' : 'جاري التحميل...';
+      }
+
+      // إخفاء شاشة التحميل بعد 700 مللي ثانية
+      setTimeout(() => {
+        hideLoadingScreen();
+      }, 500);
+    }
+
+    window.onload = function() {
+      const lang = localStorage.getItem('language') || 'ar'; // افتراضي إلى العربية
+
+      // عرض شاشة التحميل
+      showLoadingScreen();
+
+      changeLanguage(lang);
+
+      // إزالة شاشة التحميل بعد 500 مللي ثانية
+      setTimeout(() => {
+          hideLoadingScreen();
+      }, 500);
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة التدريب الإلكتروني</title>
+    <link rel="stylesheet" href="styles.css"> <!-- ربط ملف CSS الخارجي -->
+    <style>
+        body {
+            font-family: 'Palatino Linotype', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-y: auto; /* تمكين التمرير العمودي */
+            height: 100vh; /* تعيين ارتفاع الجسم ليكون 100% من ارتفاع النافذة */
+        }
+        .mobile-frame {
+            border-radius: 20px;
+            position: relative; /* لجعل الفوتر داخل الفريم */
+            width: 375px; /* عرض الهاتف */
+            margin: 0 auto; /* توسيط الفريم */
+            overflow: auto; /* تمكين التمرير داخل الفريم */
+            max-height: 100vh; /* تعيين أقصى ارتفاع للفريم */
+        }
+        .header {
+            background-image: url('About.png');
+            background-size: cover;
+            background-position: center;
+            height: 140px; /* ارتفاع الرأس */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center; 
+            position: relative; 
+        }
+        .language-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* خلفية نصف شفافة */
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 1.2em;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .image-link {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-link img {
+            max-width: 90%; /* جعل الصورة تتناسب مع حجم الشاشة */
+            height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+            border-radius: 10px; /* زوايا دائرية للصورة */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* ظل خفيف للصورة */
+        }
+        .important-links {
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px; /* توسيط العنصر */
+        }
+        .important-links h2 {
+            text-align: center; /* محاذاة عنوان الروابط الهامة إلى الوسط */
+        }
+        .link-item {
+            margin: 10px 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* محاذاة العناصر في الوسط */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 100%; /* جعل العنصر يأخذ عرض كامل */
+        }
+        .link-item:hover {
+            background-color: #e9e9e9; /* تغيير لون الخلفية عند التمرير */
+        }
+        .link-content {
+            display: none; /* إخفاء المحتوى بشكل افتراضي */
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .arabic {
+            text-align: right; /* محاذاة النص العربي لليمين */
+        }
+        .english {
+            text-align: left; /* محاذاة النص الإنجليزي لليسار */
+        }
+        .loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 100%;
+  background-color: rgba(255,255,255,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+  font-family: 'Lateef', serif;
+  font-size: 1.3em;
+  color: #007bff;
+}
+.loading-screen.hidden {
+  display: none;
+}
+.loading-screen img {
+  width: 100px;
+  margin-bottom: 15px;
+}
+    </style>
+</head>
+<body>
+    <div class="mobile-frame">
+        <div id="loading-screen" class="loading-screen hidden">
+  <img src="logo.png" alt="Logo" />
+  <div id="loading-text">...جاري التحميل</div>
+</div>
+        <div class="header">
+            <h1 id="headerTitle"> </h1>
+            <div class="language-switch">
+                <button onclick="changeLanguage('en')">English</button>
+                <button onclick="changeLanguage('ar')">العربية</button>
+            </div>
+            <a href="index.html" class="back-button">←</a> <!-- سهم العودة -->
+        </div>
+        <h1 id="portalTitle" style="font-family:'Lateef', serif;">بوابة التدريب الإلكتروني</h1> <!-- عنوان بوابة التدريب الإلكتروني محاذي للوسط -->
+        <div class="image-link">
+            <a href="https://lms.swcc.gov.sa/login/index.php" target="_blank">
+                <img src="e-Training Gate.png" alt="بوابة التدريب الإلكتروني">
+            </a>
+        </div>
+
+        <div class="important-links">
+            <h2 style="font-family:'Lateef', serif; text-align: center;">روابط هامة لاستخدام البوابة</h2> <!-- محاذاة عنوان الروابط الهامة إلى الوسط -->
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('privacy-policy')">
+                سياسة الخصوصية
+                <span>+</span>
+            </div>
+            <div id="privacy-policy" class="link-content">
+                <div class="arabic">
+                    <h3 style="font-family:'Lateef', serif;">سياسة الخصوصية</h3>
+                    <p style="font-family:'Lateef', serif;">تلتزم أكاديمية المياه بحماية خصوصية المستخدمين وضمان سرية المعلومات الشخصية التي يتم جمعها من خلال الموقع الإلكتروني أو أي من خدماتها. تُجمع المعلومات الشخصية فقط عند الضرورة، مثل تسجيل الحساب أو تقديم الطلبات، وتُستخدم لأغراض محددة ومعلنة مسبقًا. تلتزم الأكاديمية بعدم مشاركة أو بيع البيانات الشخصية لأي طرف ثالث بدون موافقة المستخدم، ما لم يكن ذلك مطلوبًا بموجب القانون.</p>
+                    <h4 style="font-family:'Lateef', serif;">جمع البيانات</h4>
+                    <p style="font-family:'Lateef', serif;">تقوم أكاديمية المياه بجمع بيانات المستخدمين لتقديم خدماتها بكفاءة. تشمل هذه البيانات الاسم، البريد الإلكتروني، رقم الهاتف، وعناوين الاتصال. يمكن أيضًا جمع معلومات إضافية تتعلق بتفضيلات المستخدمين لتحسين تجربة استخدام الموقع. تُجمع البيانات باستخدام أساليب آمنة وتقنيات تشفير لضمان حماية المعلومات من الوصول غير المصرح به.</p>
+                    <h4 style="font-family:'Lateef', serif;">استخدام البيانات</h4>
+                    <p style="font-family:'Lateef', serif;">تستخدم أكاديمية المياه البيانات الشخصية لتحسين خدماتها وتلبية احتياجات المستخدمين. يمكن استخدام المعلومات لإرسال إشعارات تتعلق بالخدمات، أو تحديثات حول الأنظمة، أو استجابةً لطلبات المستخدمين. لا يتم استخدام البيانات لأي أغراض تسويقية دون موافقة صريحة من المستخدمين.</p>
+                    <h4 style="font-family:'Lateef', serif;">حماية البيانات</h4>
+                    <p style="font-family:'Lateef', serif;">تطبق أكاديمية المياه إجراءات حماية متقدمة لضمان أمان المعلومات الشخصية المخزنة. يتم استخدام تقنيات التشفير وجدران الحماية لمنع الوصول غير المصرح به إلى البيانات. تلتزم الأكاديمية بمراجعة وتحديث أنظمة الحماية بانتظام لضمان التوافق مع أحدث المعايير الأمنية.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Privacy Policy</h3>
+                    <p style="font-family:'Lateef', serif;">The Water Academy is committed to protecting the privacy of users and ensuring the confidentiality of personal information collected through the website or any of its services. Personal information is only collected when necessary, such as when registering an account or submitting requests, and is used for specific and previously announced purposes. The academy is committed to not sharing or selling personal data to any third party without user consent, unless required by law.</p>
+                    <h4 style="font-family:'Lateef', serif;">Data Collection</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy collects user data to provide its services efficiently. This data includes name, email, phone number, and contact addresses. Additional information related to user preferences may also be collected to enhance the website experience. Data is collected using secure methods and encryption techniques to ensure protection from unauthorized access.</p>
+                    <h4 style="font-family:'Lateef', serif;">Use of Data</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy uses personal data to improve its services and meet user needs. Information may be used to send notifications related to services, system updates, or in response to user requests. Data is not used for marketing purposes without explicit user consent.</p>
+                    <h4 style="font-family:'Lateef', serif;">Data Protection</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy applies advanced protection procedures to ensure the security of stored personal information. Encryption techniques and firewalls are used to prevent unauthorized access to data. The academy is committed to regularly reviewing and updating protection systems to ensure compliance with the latest security standards.</p>
+                </div>
+            </div>
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('terms-of-use')">
+                سياسة الاستخدام
+                <span>+</span>
+            </div>
+            <div id="terms-of-use" class="link-content">
+                <div class="arabic">
+                    <h3 style="font-family:'Lateef', serif;">سياسة الاستخدام</h3>
+                    <p style="font-family:'Lateef', serif;">تنص سياسة الاستخدام على أن جميع المستخدمين الذين يصلون إلى الموقع الإلكتروني لأكاديمية المياه أو يستخدمون خدماتها يجب عليهم الالتزام بالشروط والقوانين المحلية. يُحظر استغلال الموقع لأغراض غير قانونية أو للتعدي على حقوق الغير. أي استخدام غير مصرح به للمحتويات أو الخدمات المعروضة قد يعرض المستخدم للمساءلة القانونية. تتحمل الأكاديمية الحق في تعديل أو تحديث سياسة الاستخدام في أي وقت، وعلى المستخدمين مراجعة السياسة بانتظام للتأكد من الامتثال للشروط.</p>
+                    <h4 style="font-family:'Lateef', serif;">إخلاء المسؤولية</h4>
+                    <p style="font-family:'Lateef', serif;">لا تتحمل أكاديمية المياه أي مسؤولية عن الأضرار المباشرة أو غير المباشرة التي قد تنجم عن استخدام الموقع أو الخدمات المقدمة. المعلومات المقدمة على الموقع هي لأغراض معلوماتية فقط، ولا يُعتمد عليها في اتخاذ قرارات قانونية أو تجارية. جميع الروابط الخارجية المقدمة في الموقع هي لأغراض تسهيلية، ولا تتحمل الهيئة أي مسؤولية عن محتوى أو سياسات المواقع الخارجية. يُنصح المستخدمون بالتأكد من صلاحية ودقة المعلومات قبل اتخاذ أي إجراءات.</p>
+                    <h4 style="font-family:'Lateef', serif;">حدود الاستخدام</h4>
+                    <p style="font-family:'Lateef', serif;">تحدد أكاديمية المياه حدودًا لاستخدام الموقع والخدمات التي تقدمها. يُمنع إعادة إنتاج أو نشر أي محتوى من الموقع دون إذن كتابي مسبق. يجب استخدام المعلومات المتاحة على الموقع بشكل شخصي وغير تجاري، ولا يُسمح بتوزيع أو تعديل المحتوى لأغراض تجارية. أي محاولة للاختراق أو التلاعب ببيانات الموقع ستُعد مخالفة قانونية وستتعامل الأكاديمية معها بحزم.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Terms of Use</h3>
+                    <p style="font-family:'Lateef', serif;">The Terms of Use state that all users who access the Water Academy's website or use its services must comply with local laws and regulations. It is prohibited to exploit the site for illegal purposes or to infringe on the rights of others. Any unauthorized use of the content or services displayed may expose the user to legal liability. The academy reserves the right to modify or update the Terms of Use at any time, and users should regularly review the policy to ensure compliance with the terms.</p>
+                    <h4 style="font-family:'Lateef', serif;">Disclaimer</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy is not responsible for any direct or indirect damages that may arise from the use of the website or the services provided. The information provided on the site is for informational purposes only and should not be relied upon for legal or business decisions. All external links provided on the site are for convenience only, and the academy is not responsible for the content or policies of external sites. Users are advised to ensure the validity and accuracy of the information before taking any action.</p>
+                    <h4 style="font-family:'Lateef', serif;">Usage Limits</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy sets limits on the use of the site and the services it provides. Reproduction or publication of any content from the site without prior written permission is prohibited. The information available on the site should be used for personal and non-commercial purposes, and distribution or modification of the content for commercial purposes is not allowed. Any attempt to hack or manipulate the site's data will be considered a legal violation, and the academy will deal with it firmly.</p>
+                </div>
+            </div>
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('communication-policy')">
+                سياسة التواصل
+                <span>+</span>
+            </div>
+            <div id="communication-policy" class="link-content">
+                <div class="arabic">
+                    <h3 style="font-family:'Lateef', serif;">سياسة التواصل في بيئة التدريب الإلكتروني</h3>
+                    <p style="font-family:'Lateef', serif;">تحرص أكاديمية المياه على توفير بيئة تدريب إلكتروني فعالة وآمنة تشجع على التواصل الفعّال بين جميع المستفيدين، سواء بين المدربين والمتدربين أو بين المتدربين أنفسهم. ولتحقيق ذلك، نضع بين أيديكم سياسة التواصل التي تهدف إلى توضيح القنوات المتاحة للتواصل وآداب استخدام هذه القنوات، بالإضافة إلى الإجراءات المتبعة في حال مخالفة هذه السياسة:</p>
+                    
+                    <h4 style="font-family:'Lateef', serif;">أدوات وقنوات التواصل</h4>
+                    <p style="font-family:'Lateef', serif;">تتيح أكاديمية المياه لمستخدمي المنصة التدريبية الإلكترونية مجموعة متنوعة من القنوات للتواصل، وتشمل: المناقشات التفاعلية متاحة ضمن الدورات التدريبية، حيث يمكن للمتدربين طرح الأسئلة والاستفسارات. البريد الإلكتروني يُستخدم للتواصل الرسمي بين المتدربين والمدربين أو مع الدعم الفني والإدارة. المنتديات التعليمية هي مساحة مفتوحة للنقاش حول مواضيع التدريب وتبادل المعرفة بين المتدربين. قنوات التواصل الفورية مثل الدردشة المباشرة داخل المنصة، أو مجموعات مخصصة عبر التطبيقات المعتمدة.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">آداب التواصل</h4>
+                    <p style="font-family:'Lateef', serif;">لضمان بيئة تواصل إيجابية وبنّاءة، يجب على جميع المستخدمين الالتزام بما يلي: الاحترام المتبادل، استخدام لغة لائقة، الابتعاد عن المواضيع الحساسة، الالتزام بموضوع النقاش، والمصداقية والشفافية.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">الإجراءات المتبعة في حال مخالفة سياسة التواصل</h4>
+                    <p style="font-family:'Lateef', serif;">في حال عدم الالتزام بسياسة التواصل، سيتم اتخاذ الإجراءات التالية بناءً على درجة المخالفة: التنبيه الأولي، حظر مؤقت من بعض القنوات، الإيقاف المؤقت عن المنصة، والإيقاف النهائي.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">الموافقة على سياسة التواصل</h4>
+                    <p style="font-family:'Lateef', serif;">من خلال استخدام منصتنا التدريبية، فإن جميع المستفيدين يوافقون على الالتزام بهذه السياسة.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Communication Policy in the E-Training Environment</h3>
+                    <p style="font-family:'Lateef', serif;">The Water Academy is keen to provide an effective and safe e-training environment that encourages effective communication among all beneficiaries, whether between trainers and trainees or among trainees themselves. To achieve this, we present to you the communication policy that aims to clarify the available channels for communication and the etiquette for using these channels, in addition to the procedures followed in case of violating this policy:</p>
+                    
+                    <h4 style="font-family:'Lateef', serif;">Communication Tools and Channels</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy provides users of the e-training platform with a variety of channels for communication, including interactive discussions, email, educational forums, and instant communication channels.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Communication Etiquette</h4>
+                    <p style="font-family:'Lateef', serif;">To ensure a positive and constructive communication environment, all users must adhere to mutual respect, appropriate language, avoiding sensitive topics, sticking to the discussion topic, and credibility and transparency.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Procedures in Case of Violation of the Communication Policy</h4>
+                    <p style="font-family:'Lateef', serif;">In case of non-compliance with the communication policy, the following actions will be taken based on the severity of the violation: initial warning, temporary ban from some channels, temporary suspension from the platform, and permanent suspension.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Acceptance of the Communication Policy</h4>
+                    <p style="font-family:'Lateef', serif;">By using our training platform, all beneficiaries agree to comply with this policy.</p>
+                </div>
+            </div>
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('technical-support')">
+                الدعم الفني
+            </div>
+            <div id="technical-support" class="link-content">
+                <div class="arabic">
+                    <h3 style="font-family:'Lateef', serif;">الدعم الفني في بيئة التدريب الالكتروني</h3>
+                   <p style="font-family:'Lateef', serif;">نحن ملتزمون في أكاديمية المياه بتقديم الدعم الفني لجميع المستفيدين لضمان تجربة تدريبية سلسة وخالية من المشكلات التقنية.</p>
+                    
+                    <h4 style="font-family:'Lateef', serif;">قنوات الدعم الفني</h4>
+                    <p style="font-family:'Lateef', serif;">يمكنكم التواصل مع فريق الدعم الفني من خلال القنوات التالية: البريد الإلكتروني: e-Learning@swcc.gov.sa (للاستفسارات العامة والمشكلات التقنية). أرقام الهاتف: ٠١٣٣٤٣٠٣٣٣ تحويله ٣٠٥٢٤ - ٣٠٦٠٦. رفع تذكرة دعم فني عبر الموقع: <a href="https://www.watercademy.com/new/ticket" target="_blank">https://www.watercademy.com/new/ticket</a>.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">الخدمات المشمولة بالدعم الفني</h4>
+                    <p style="font-family:'Lateef', serif;">يقدم فريق الدعم الفني المساعدة في الأمور التالية: مشكلات تسجيل الدخول واستعادة الحساب، الدعم التقني للأنشطة التدريبية والمقررات الإلكترونية، إصلاح الأعطال الفنية داخل المنصة التدريبية، الإجابة عن الاستفسارات المتعلقة باستخدام الأدوات والأنظمة التعليمية، وإرشادات حول استخدام الأنظمة والتحديثات الجديدة.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">استقبال الشكاوى والاقتراحات</h4>
+                    <p style="font-family:'Lateef', serif;">يمكن للمستفيدين تقديم الشكاوى والاقتراحات عبر نموذج الشكاوى والاقتراحات المتاح على الموقع: <a href="https://www.watercademy.com/contactus" target="_blank">https://www.watercademy.com/contactus</a>. إرسال بريد إلكتروني إلى: TServices@watercademy.com. الاتصال المباشر بالدعم الفني خلال أوقات العمل الرسمية.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">كيفية التعامل مع الشكاوى</h4>
+                    <p style="font-family:'Lateef', serif;">يتم استقبال الشكاوى وتصنيفها حسب نوع المشكلة. يتم التواصل مع المستفيد خلال يوم عمل من تقديم الطلب لتقديم الحلول الممكنة. في حال لم يتم حل المشكلة، يتم تصعيدها إلى القسم المختص لضمان حلها خلال الإطار الزمني المحدد.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">أوقات عمل فريق الدعم الفني</h4>
+                    <p style="font-family:'Lateef', serif;">الأحد – الخميس: من الساعة ٧:٠٠ صباحًا إلى ٣:٠٠ مساءً.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">الوقت المتوقع للرد على طلبات الدعم الفني</h4>
+                    <p style="font-family:'Lateef', serif;">الرد على الاستفسارات العامة: خلال ٢٤ ساعة. حل المشكلات الفنية البسيطة: خلال ٤٨ ساعة. المشكلات التقنية المعقدة: خلال ٣ - ٥ أيام عمل.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">إجراءات التصعيد في حال عدم الرد في الوقت المحدد</h4>
+                    <p style="font-family:'Lateef', serif;">في حال لم يتم الرد على طلب الدعم الفني خلال المدة المحددة، يمكن للمستفيد تصعيد المشكلة عبر التواصل مباشرة مع المشرف المسؤول عبر ٠١٣٣٤٣٠٣٣٣ تحويله ٣٠٤٠٧ / <a href="mailto:itsupport@watercademy.com">itsupport@watercademy.com</a>.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">الالتزام بتقديم الدعم الفني</h4>
+                    <p style="font-family:'Lateef', serif;">نحن في أكاديمية المياه ملتزمون بتقديم دعم فني موثوق ومتاح لجميع الفئات، ونحرص على تحسين خدماتنا باستمرار لضمان تجربة تعليمية فعالة لجميع المستفيدين.</p>
+                    <p style="font-family:'Lateef', serif;">للمزيد من المعلومات، لا تترددوا في التواصل معنا عبر قنوات الدعم الفني الموضحة أعلاه.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Technical Support in the E-Training Environment</h3>
+                    <p style="font-family:'Lateef', serif;">We at the Water Academy are committed to providing technical support to all beneficiaries to ensure a smooth training experience free of technical issues.</p>
+                    
+                    <h4 style="font-family:'Lateef', serif;">Technical Support Channels</h4>
+                    <p style="font-family:'Lateef', serif;">You can contact the technical support team through the following channels: Email: e-Learning@swcc.gov.sa (for general inquiries and technical issues). Phone Numbers: 0133430333 extension 30524 - 30606. Submit a Technical Support Ticket via the website: <a href="https://www.watercademy.com/new/ticket" target="_blank">https://www.watercademy.com/new/ticket</a>.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Services Covered by Technical Support</h4>
+                    <p style="font-family:'Lateef', serif;">The technical support team provides assistance with the following: Login issues and account recovery, technical support for training activities and electronic courses, fixing technical faults within the training platform, answering inquiries related to the use of educational tools and systems, and guidance on using systems and new updates.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Receiving Complaints and Suggestions</h4>
+                    <p style="font-family:'Lateef', serif;">Beneficiaries can submit complaints and suggestions via the complaints and suggestions form available on the website: <a href="https://www.watercademy.com/contactus" target="_blank">https://www.watercademy.com/contactus</a>. Sending an email to: TServices@watercademy.com. Direct contact with technical support during official working hours.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">How to Handle Complaints?</h4>
+                    <p style="font-family:'Lateef', serif;">Complaints are received and classified according to the type of issue. The beneficiary will be contacted within one working day of submitting the request to provide possible solutions. If the issue is not resolved, it will be escalated to the relevant department to ensure it is resolved within the specified timeframe.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Technical Support Team Working Hours</h4>
+                    <p style="font-family:'Lateef', serif;">Sunday - Thursday: from 7:00 AM to 3:00 PM.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Expected Response Time for Technical Support Requests</h4>
+                    <p style="font-family:'Lateef', serif;">Response to general inquiries: within 24 hours. Resolution of simple technical issues: within 48 hours. Complex technical issues: within 3 - 5 working days.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Escalation Procedures in Case of No Response Within the Specified Time</h4>
+                    <p style="font-family:'Lateef', serif;">If there is no response to the technical support request within the specified time, the beneficiary can escalate the issue by directly contacting the responsible supervisor at 0133430333 extension 30407 / <a href="mailto:itsupport@watercademy.com">itsupport@watercademy.com</a>.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Commitment to Providing Technical Support</h4>
+                    <p style="font-family:'Lateef', serif;">At the Water Academy, we are committed to providing reliable and available technical support for all categories, and we strive to continuously improve our services to ensure an effective educational experience for all beneficiaries.</p>
+                    <p style="font-family:'Lateef', serif;">For more information, feel free to contact us through the technical support channels mentioned above.</p>
+                </div>
+            </div>
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('intellectual-property')">
+                الملكية الفكرية
+            </div>
+            <div id="intellectual-property" class="link-content">
+                <div class="arabic">
+                    <h3 style="font-family:'Lateef', serif;">حقوق الملكية الفكرية</h3>
+                    <p style="font-family:'Lateef', serif;">تعد جميع المحتويات المتاحة على موقع أكاديمية المياه، بما في ذلك النصوص، الصور، الرسومات، التصاميم، والشعارات، ملكًا للأكاديمية ومحميّة بموجب قوانين حقوق الملكية الفكرية المحلية والدولية. يُحظر إعادة إنتاج، توزيع، أو تعديل أي من هذه المحتويات دون إذن كتابي مسبق من الأكاديمية. أي استخدام غير مصرح به قد يؤدي إلى اتخاذ إجراءات قانونية ضد المخالفين.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">العلامات التجارية</h4>
+                    <p style="font-family:'Lateef', serif;">العلامات التجارية والشعارات التي تستخدمها أكاديمية المياه هي ملك للأكاديمية ولا يجوز استخدامها بأي شكل من الأشكال دون إذن كتابي مسبق. أي استخدام غير مصرح به للعلامات التجارية الخاصة بالأكاديمية، سواء كان لأغراض تجارية أو غير تجارية، يشكل انتهاكًا لقوانين الملكية الفكرية وسيتم التعامل معه قانونيًا.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">التراخيص والاستخدام العادل</h4>
+                    <p style="font-family:'Lateef', serif;">قد تسمح أكاديمية المياه باستخدام بعض المحتويات المتاحة على موقعها لأغراض غير تجارية، بشرط الحصول على إذن كتابي مسبق والالتزام بسياسة الاستخدام العادل. هذا الاستخدام يجب أن يكون لأغراض تعليمية أو بحثية ولا يجب أن يؤثر على حقوق الملكية الفكرية للأكاديمية أو أن يتسبب في أي أضرار مادية.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">انتهاكات حقوق الملكية الفكرية</h4>
+                    <p style="font-family:'Lateef', serif;">في حال حدوث أي انتهاك لحقوق الملكية الفكرية الخاصة بأكاديمية المياه، ستتخذ الأكاديمية كافة الإجراءات القانونية اللازمة لحماية حقوقها. يُنصح المستخدمون بالإبلاغ عن أي انتهاك محتمل فور اكتشافه، وسيتم التحقيق في الأمر واتخاذ التدابير المناسبة. الأكاديمية تحتفظ بحقها الكامل في المطالبة بالتعويضات عن أي أضرار ناتجة عن هذا الانتهاك.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Intellectual Property Rights</h3>
+                    <p style="font-family:'Lateef', serif;">All content available on the Water Academy website, including texts, images, graphics, designs, and logos, is the property of the academy and protected under local and international intellectual property laws. Reproducing, distributing, or modifying any of this content without prior written permission from the academy is prohibited. Any unauthorized use may result in legal action against violators.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Trademarks</h4>
+                    <p style="font-family:'Lateef', serif;">The trademarks and logos used by the Water Academy are the property of the academy and may not be used in any form without prior written permission. Any unauthorized use of the academy's trademarks, whether for commercial or non-commercial purposes, constitutes a violation of intellectual property laws and will be dealt with legally.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Licenses and Fair Use</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy may allow the use of some content available on its website for non-commercial purposes, provided that prior written permission is obtained and the fair use policy is adhered to. This use must be for educational or research purposes and should not affect the academy's intellectual property rights or cause any material damage.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Intellectual Property Rights Violations</h4>
+                    <p style="font-family:'Lateef', serif;">In the event of any violation of the intellectual property rights of the Water Academy, the academy will take all necessary legal actions to protect its rights. Users are advised to report any potential violations immediately upon discovery, and the matter will be investigated, and appropriate measures will be taken. The academy reserves its full right to claim damages for any harm resulting from this violation.</p>
+                </div>
+            </div>
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('academic-integrity')">
+                النزاهة الأكاديمية
+            </div>
+            <div id="academic-integrity" class="link-content">
+                <div class="arabic">
+                    <h3 style="font-family:'Lateef', serif;">النزاهة الأكاديمية في بيئة التعلم الالكتروني</h3>
+                    <p style="font-family:'Lateef', serif;">تعتبر النزاهة الأكاديمية ركيزة أساسية في الأوساط الأكاديمية. تتناول النزاهة الأكاديمية وفق المفهوم الشامل له التصدي للانتحال العلمي، والغش، والتلفيق العلمي، والحصول على ميزة أكاديمية دون وجه حق، والمساعدة والتحريض على خيانة الأمانة الأكاديمية، والوصول غير المصرح به إلى الوثائق الرسمية الأكاديمية والإدارية، وانتهاك حقوق الملكية الفكرية. تساهم عمادة التعلم الإلكتروني والتعليم عن بُعد في احترام وتحقيق النزاهة الأكاديمية من خلال مبادئ وأصول التعامل مع المحتوى التعليمي بما يضمن حقوق الملكية الفكرية عند تصميم وتطوير ونشر جميع المواد التعليمية الرقمية والمحتوى الرقمي بجميع أنواعه على الموقع الإلكتروني أو على أنظمة التعلم الإلكتروني. لذلك فهي تعد مبدئًا أساسيًا لأنظمة التعلم الإلكتروني في تقديم برامج التعلم الإلكتروني والتعليم عن بعد في أكاديمية المياه.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">آليات تحقيق النزاهة الأكاديمية</h4>
+                    <p style="font-family:'Lateef', serif;">يقوم قسم تقنية المعلومات بالتعاون مع مسؤولي التعلم الإلكتروني بنشر ثقافة النزاهة الأكاديمية في بيئات التعلم الإلكترونية بين المستفيدين من متدربين ومدربين. يقوم قسم تقنية المعلومات بالتعاون مع مسؤولي التعلم الإلكتروني على تحقيق مبادئ النزاهة الأكاديمية في بيئات التعلم الإلكترونية بالتعاون مع المدربين للتأكد من نزاهة الأعمال المقدمة من الواجبات والاختبارات والبحوث. يُلزم المتدرب بأن تكون جميع الأعمال المقدمة خلال العملية التعليمية أعمالًا أصيلة. يتم التحقق من هوية المتدرب في الأكاديمية بالتعاون مع قسم تقنية المعلومات ويكون التحقق بشكل دوري.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">أشكال انتهاك النزاهة الأكاديمية</h4>
+                    <p style="font-family:'Lateef', serif;">تتعدد أشكال التصرف التي تعتبر مخلّة لمعايير ومبادئ النزاهة الأكاديمية، ومن بعضها، على سبيل التعداد لا الحصر: الغش: نقل أعمال الآخرين والاستخدام غير المصرح به لأي ملاحظات ومعلومات ومواد في الامتحانات الأكاديمية أو غيرها من المهام الموكلة للمتدربين. السرقة الفكرية/ الانتحال الأدبي: اقتباس عبارات وأعمال الآخرين، والاستخدام غير المرخص له للمدونات الفكرية والأدبية أو لأي معلومات في أي تكاليف تدريبية، دون الإشارة إليها باعتبارها مرجعًا. سرقة جهود الآخرين: استغلال المتدرب لمتدرب آخر لإنجاز التكاليف التدريبية. انتحال شخصية الغير: ادّعاء المتدرب صفة غيره داخل فصل افتراضي، أو في اختبار، أو في المنتديات التدريبية، أو في أي نوع من الواجبات الأكاديمية. التزوير: إقدام المتدرب على تغيير المعلومات المتاحة له أو تضليلها في اختبار/ واجب أكاديمي، أو إبرازه لوثائق مزوّرة عن أداء التكاليف الأكاديمية.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">الإجراءات التأديبية حيال عمليات انتهاك النزاهة الأكاديمية</h4>
+                    <p style="font-family:'Lateef', serif;">يحق لأكاديمية المياه بعد تثبتها من المخالفات المحالة إليها، الإيقاع بواحدة أو أكثر من العقوبات التالية: التنبيه شفهياً وتوثيق ذلك بتعهد خطي أو الإنذار كتابة. الحرمان المؤقت من الاشتراك في النشاطات التدريبية أو من بعض الخدمات الأكاديمية. إلغاء اختبار المادة أو المواد في حالات الغش أو المحاولة. الحرمان من الحصول على الشهادة. الإيقاف عن الدراسة لمدة تحددها الأكاديمية.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Academic Integrity in the E-Learning Environment</h3>
+                    <p style="font-family:'Lateef', serif;">Academic integrity is a fundamental pillar in academic circles. It addresses the issues of plagiarism, cheating, scientific fabrication, obtaining academic advantages unjustly, assisting and inciting academic dishonesty, unauthorized access to official academic and administrative documents, and violating intellectual property rights. The Deanship of E-Learning and Distance Education contributes to respecting and achieving academic integrity through principles and foundations for dealing with educational content that ensure intellectual property rights when designing, developing, and publishing all digital educational materials and digital content of all kinds on the website or on e-learning systems. Therefore, it is considered a fundamental principle for e-learning systems in providing e-learning and distance education programs at the Water Academy.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Mechanisms for Achieving Academic Integrity</h4>
+                    <p style="font-family:'Lateef', serif;">The IT department, in cooperation with e-learning officials, promotes a culture of academic integrity in e-learning environments among beneficiaries, including trainees and trainers. The IT department, in cooperation with e-learning officials, ensures the principles of academic integrity in e-learning environments in collaboration with trainers to ensure the integrity of the work submitted in assignments, tests, and research. The trainee is required to ensure that all work submitted during the educational process is original. The identity of the trainee at the academy is verified in collaboration with the IT department and is done periodically.</p>
+                    <h4 style="font-family:'Lateef', serif;">Forms of Violating Academic Integrity</h4>
+                    <p style="font-family:'Lateef', serif;">There are various forms of behavior that are considered violations of the standards and principles of academic integrity, including but not limited to: Cheating: Transferring others' work and unauthorized use of any notes, information, and materials in academic exams or other assigned tasks. Intellectual theft/plagiarism: Copying phrases and works of others and unauthorized use of intellectual and literary blogs or any information in any training assignments without citing them as references. Stealing others' efforts: Exploiting one trainee by another to complete training assignments. Impersonation: Claiming to be someone else in a virtual class, in a test, in training forums, or in any type of academic assignments. Forgery: Altering or misleading information available to the trainee in an academic test/assignment or presenting forged documents regarding academic assignments.</p>
+
+                    <h4 style="font-family:'Lateef', serif;">Disciplinary Actions for Violating Academic Integrity</h4>
+                    <p style="font-family:'Lateef', serif;">The Water Academy has the right, after confirming violations referred to it, to impose one or more of the following penalties: Oral warning and documenting it with a written commitment or written warning. Temporary suspension from participating in training activities or some academic services. Cancelling the exam for the subject or subjects in cases of cheating or attempts. Deprivation of obtaining the certificate. Suspension from study for a period determined by the academy.</p>
+                </div>
+            </div>
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('lms-guide')">
+                دليل استخدام نظام إدارة التعلم للمدربين
+                <span>+</span>
+            </div>
+            <div id="lms-guide" class="link-content">
+                <div class="arabic">
+                    <p style="font-family:'Lateef', serif;">يرجى الضغط <a href="https://app.arcade.software/share/vzrPUQVBtN5Jg16sJID6" target="_blank" style="color: blue; text-decoration: underline;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';">هنا</a> للوصول.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Guide to Using the Learning Management System for Trainers</h3>
+                    <p style="font-family:'Lateef', serif;">Please click <a href="https://app.arcade.software/share/vzrPUQVBtN5Jg16sJID6" target="_blank" style="color: blue; text-decoration: underline;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';">here</a> to access.</p>
+                </div>
+            </div>
+            <div style="font-family:'Lateef', serif;" class="link-item arabic" onclick="toggleContent('lms-guide-trainees')">
+                دليل استخدام نظام إدارة التعلم للمتدربين
+                <span>+</span>
+            </div>
+            <div id="lms-guide-trainees" class="link-content">
+                <div class="arabic">
+                    <p style="font-family:'Lateef', serif;">يرجى الضغط <a href="https://app.arcade.software/share/6B3tLxUj5Xx1WFHlGMBR" target="_blank" style="color: blue; text-decoration: underline;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';">هنا</a> للوصول.</p>
+                </div>
+                <div class="english" style="display: none;">
+                    <h3 style="font-family:'Lateef', serif;">Guide to Using the Learning Management System for Trainees</h3>
+                    <p style="font-family:'Lateef', serif;">Please click <a href="https://app.arcade.software/share/6B3tLxUj5Xx1WFHlGMBR" target="_blank" style="color: blue; text-decoration: underline;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';">here</a> to access.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inline JavaScript -->
+    <script>
+    window.onload = function () {
+  const lang = localStorage.getItem('language') || 'ar';
+  showLoading(lang);
+  setTimeout(() => {
+    changeLanguage(lang);
+    hideLoading();
+  }, 500); // وقت إظهار شاشة التحميل
+};
+function showLoading(lang) {
+  const loadingScreen = document.getElementById('loading-screen');
+  const loadingText = document.getElementById('loading-text');
+  loadingText.innerText = lang === 'en' ? 'Loading...' : '...جاري التحميل';
+  loadingScreen.classList.remove('hidden');
+}
+function hideLoading() {
+  document.getElementById('loading-screen').classList.add('hidden');
+}
+       function changeLanguage(lang) {
+  showLoading(lang); // إظهار شاشة التحميل أولاً
+  localStorage.setItem('language', lang);
+
+  setTimeout(() => {
+    if (lang === 'en') {
+      document.querySelector('#headerTitle').innerText = '';
+      document.querySelector('.important-links h2').innerText = 'Important Links for Using the Portal';
+      document.querySelector('#portalTitle').innerText = 'E-Training Gate';
+
+      const links = [
+        'Privacy Policy',
+        'Terms of Use',
+        'Communication Policy',
+        'Technical Support',
+        'Intellectual Property',
+        'Academic Integrity',
+        'Guide to Using the Learning Management System for Trainers',
+        'Guide to Using the Learning Management System for Trainees'
+      ];
+      const linkItems = document.querySelectorAll('.link-item');
+      linkItems.forEach((item, index) => {
+        item.firstChild.nodeValue = links[index];
+        item.classList.remove('arabic');
+        item.classList.add('english');
+      });
+
+      document.querySelector('#portalTitle').style.textAlign = 'left';
+      document.querySelector('.important-links h2').style.textAlign = 'center';
+
+      document.querySelectorAll('.arabic').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.english').forEach(el => el.style.display = 'block');
+    } else {
+      document.querySelector('#headerTitle').innerText = '';
+      document.querySelector('.important-links h2').innerText = 'روابط هامة لاستخدام البوابة';
+      document.querySelector('#portalTitle').innerText = 'بوابة التدريب الإلكتروني';
+
+      const links = [
+        'سياسة الخصوصية',
+        'سياسة الاستخدام',
+        'سياسة التواصل',
+        'الدعم الفني',
+        'الملكية الفكرية',
+        'النزاهة الأكاديمية',
+        'دليل استخدام نظام إدارة التعلم للمدربين',
+        'دليل استخدام نظام إدارة التعلم للمتدربين'
+      ];
+      const linkItems = document.querySelectorAll('.link-item');
+      linkItems.forEach((item, index) => {
+        item.firstChild.nodeValue = links[index];
+        item.classList.remove('english');
+        item.classList.add('arabic');
+      });
+
+      document.querySelector('#portalTitle').style.textAlign = 'right';
+      document.querySelector('.important-links h2').style.textAlign = 'center';
+
+      document.querySelectorAll('.english').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.arabic').forEach(el => el.style.display = 'block');
+    }
+
+    hideLoading(); // إخفاء شاشة التحميل بعد تطبيق التغييرات
+  }, 500); // تأخير بسيط لإظهار الشاشة
+}
+
+
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تسجيل</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+  body {
+    font-family: 'Palatino Linotype', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .mobile-frame {
+    width: 375px;
+    margin: 20px auto;
+    overflow: auto;
+    position: relative;
+    background: white;
+    direction: rtl;
+    font-family: 'Lateef', serif;
+    min-height: 600px;
+  }
+  .header {
+    background-color: #007bff;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+  .header h1 {
+    font-family: 'Lateef', serif;
+    font-size: 1.5em;
+    margin: 0;
+  }
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-size: 1.1em;
+    text-decoration: none;
+    background-color: rgba(0,0,0,0.3);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .language-switch {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 5px;
+    padding: 5px;
+  }
+  .language-switch button {
+    border: none;
+    background: none;
+    color: black;
+    cursor: pointer;
+    margin: 0 2px;
+    font-size: 0.9em;
+  }
+  .form-group {
+    margin: 15px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Lateef', serif;
+    font-size: 1.1em;
+    color: #333;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Lateef', serif;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+  .btn {
+    width: 90%;
+    margin: 15px auto 30px auto;
+    display: block;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Lateef', serif;
+    font-size: 1.1em;
+  }
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  .have-account {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Lateef', serif;
+    font-size: 1em;
+    color: black;
+  }
+  .have-account a {
+    display: block;
+    margin-top: 5px;
+    font-family: 'Lateef', serif;
+    cursor: pointer;
+  }
+  .have-account a:hover {
+    text-decoration: underline;
+    color: #007bff;
+  }
+
+  /* شاشة التحميل داخل الفريم */
+  #loadingScreen {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255,255,255,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lateef', serif;
+    font-size: 1.3em;
+    color: #007bff;
+    user-select: none;
+    z-index: 100;
+  }
+  #loadingScreen img {
+    width: 120px;
+    margin-bottom: 15px;
+  }
+  .content-hidden {
+    display: none;
+  }
+  </style>
+</head>
+<body>
+  <div class="mobile-frame" id="mobileFrame">
+    <!-- شاشة التحميل -->
+    <div id="loadingScreen">
+      <img src="logo.png" alt="شعار الأكاديمية" />
+      <div id="loadingText">جاري التحميل...</div>
+    </div>
+
+    <!-- المحتوى الذي يظهر بعد التحميل -->
+    <div id="mainContent" class="content-hidden">
+      <div class="header">
+        <h1>تسجيل</h1>
+        <div class="language-switch">
+          <button onclick="switchLanguage('en')">English</button>
+          <button onclick="switchLanguage('ar')">العربية</button>
+        </div>
+        <a href="index.html" class="back-button">←</a>
+      </div>
+
+      <div class="form-group">
+        <label for="name-ar">الاسم باللغة العربية كاملًا:</label>
+        <input type="text" id="name-ar" placeholder="أدخل اسمك بالعربية" required />
+      </div>
+      <div class="form-group">
+        <label for="name-en">الاسم باللغة الإنجليزية كاملًا:</label>
+        <input type="text" id="name-en" placeholder="Enter your full name in English" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">رقم الجوال:</label>
+        <input type="tel" id="phone" placeholder="أدخل رقم الجوال" required />
+      </div>
+      <div class="form-group">
+        <label for="email">البريد الإلكتروني:</label>
+        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required />
+      </div>
+      <div class="form-group">
+        <label for="work-place">جهة العمل:</label>
+        <input type="text" id="work-place" placeholder="أدخل جهة العمل" required />
+      </div>
+      <div class="form-group">
+        <label for="job-title">المسمى الوظيفي:</label>
+        <input type="text" id="job-title" placeholder="أدخل المسمى الوظيفي" required />
+      </div>
+      <div class="form-group">
+        <label for="experience">سنوات الخبرة:</label>
+        <input type="number" id="experience" placeholder="أدخل عدد سنوات الخبرة" required />
+      </div>
+      <div class="form-group">
+        <label for="country">الدولة:</label>
+        <input type="text" id="country" placeholder="أدخل الدولة" required />
+      </div>
+
+      <button class="btn">تسجيل</button>
+      <div class="have-account" id="have-account-text">
+        <a id="login-link" onclick="window.location.href='login.html'">هل تمتلك حساب!</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = localStorage.getItem('language') || 'ar';
+
+    window.onload = function() {
+      showLoadingScreen();
+      setTimeout(() => {
+        switchLanguage(currentLang);
+        hideLoadingScreen();
+      }, 500);
+    };
+
+    function showLoadingScreen() {
+          document.getElementById('loadingText').innerText = (currentLang === 'ar') ? 'جاري التحميل...' : 'Loading...';
+
+      document.getElementById('loadingScreen').style.display = 'flex';
+      document.getElementById('mainContent').classList.add('content-hidden');
+    }
+    function hideLoadingScreen() {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('mainContent').classList.remove('content-hidden');
+    }
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('language', lang);
+
+      const isArabic = lang === 'ar';
+
+      // تحديث نص شاشة التحميل
+      document.getElementById('loadingText').innerText = isArabic ? 'جاري التحميل...' : 'Loading...';
+
+      // تحديث اتجاه الصفحة
+      document.body.dir = isArabic ? 'rtl' : 'ltr';
+      document.documentElement.lang = lang;
+
+      // تحديث اتجاه الفريم
+      document.getElementById('mobileFrame').style.direction = isArabic ? 'rtl' : 'ltr';
+
+      // تحديث نصوص الصفحة
+      document.querySelector('.header h1').innerText = isArabic ? 'تسجيل' : 'Register';
+      document.querySelector('label[for="name-ar"]').innerText = isArabic ? 'الاسم باللغة العربية كاملًا:' : 'Full Name in Arabic:';
+      document.querySelector('label[for="name-en"]').innerText = isArabic ? 'الاسم باللغة الإنجليزية كاملًا:' : 'Full Name in English:';
+      document.querySelector('label[for="phone"]').innerText = isArabic ? 'رقم الجوال:' : 'Phone Number:';
+      document.querySelector('label[for="email"]').innerText = isArabic ? 'البريد الإلكتروني:' : 'Email:';
+      document.querySelector('label[for="work-place"]').innerText = isArabic ? 'جهة العمل:' : 'Work Place:';
+      document.querySelector('label[for="job-title"]').innerText = isArabic ? 'المسمى الوظيفي:' : 'Job Title:';
+      document.querySelector('label[for="experience"]').innerText = isArabic ? 'سنوات الخبرة:' : 'Years of Experience:';
+      document.querySelector('label[for="country"]').innerText = isArabic ? 'الدولة:' : 'Country:';
+
+      // تحديث الـ placeholders
+      document.getElementById('name-ar').placeholder = isArabic ? 'أدخل اسمك بالعربية' : 'Enter your full name in Arabic';
+      document.getElementById('name-en').placeholder = isArabic ? 'أدخل اسمك باللغة الإنجليزية' : 'Enter your full name in English';
+      document.getElementById('phone').placeholder = isArabic ? 'أدخل رقم الجوال' : 'Enter your phone number';
+      document.getElementById('email').placeholder = isArabic ? 'أدخل بريدك الإلكتروني' : 'Enter your email';
+      document.getElementById('work-place').placeholder = isArabic ? 'أدخل جهة العمل' : 'Enter your work place';
+      document.getElementById('job-title').placeholder = isArabic ? 'أدخل المسمى الوظيفي' : 'Enter your job title';
+      document.getElementById('experience').placeholder = isArabic ? 'أدخل عدد سنوات الخبرة' : 'Enter years of experience';
+      document.getElementById('country').placeholder = isArabic ? 'أدخل الدولة' : 'Enter your country';
+
+      document.querySelector('.btn').innerText = isArabic ? 'تسجيل' : 'Register';
+
+      document.getElementById('have-account-text').innerHTML = `<a id="login-link" onclick="window.location.href='login.html'">${isArabic ? 'هل تمتلك حساب!' : 'Already have an account!'}</a>`;
+    }
+
+    document.querySelectorAll('.language-switch button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.textContent === 'English' ? 'en' : 'ar';
+        showLoadingScreen();
+        setTimeout(() => {
+          switchLanguage(lang);
+          hideLoadingScreen();
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>

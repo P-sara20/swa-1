@@ -1,0 +1,122 @@
+
+.container {
+    width: 375px;
+    height: 667px;
+    overflow-y: auto; /* تمكين التمرير العمودي */
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* ملء الشاشة */
+}
+
+.mobile-frame {
+    border-radius: 20px;
+    width: 375px; /* عرض الهاتف */
+    height: 667px; /* ارتفاع الهاتف */
+    border: 10px solid gray; /* إطار الهاتف */
+    overflow: hidden; /* إخفاء المحتوى الزائد */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* ظل للإطار */
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* تمكين التمرير العمودي */
+    background: white;
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.header img {
+    width: 50px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+.nav-links button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.services {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+.service-item {
+    text-align: center;
+    cursor: pointer;
+}
+.service-item img {
+    width: 100px; /* عرض الأيقونة */
+    height: 100px; /* ارتفاع الأيقونة */
+}
+
+.form-group, .course-item, .cart-item, .news-item {
+    padding: 15px;
+}
+.form-group label, .course-item h3, .cart-item h3, .news-item h3 {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input, .course-item button, .cart-item button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin: 15px 0;
+}
+.language-switch {
+    text-align: center;
+    margin: 10px 0;
+}
+.language-switch button {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+.cart-summary {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+.news-item {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+.news-item img {
+    width: 100%; /* عرض الصورة بالكامل */
+    border-radius: 5px;
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>عن الأكاديمية</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Palatino Linotype', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .header {
+      background-image: url('About.png');
+      background-size: cover;
+      background-position: center;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .language-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+      padding: 5px;
+    }
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      font-size: 1.5em;
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .form-group {
+      padding: 20px;
+      max-width: 90%;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: right;
+    }
+    .form-group p {
+      line-height: 1.6;
+      margin: 15px 0;
+      font-size: 1em;
+    }
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 1.5em;
+      }
+      .back-button {
+        font-size: 1.2em;
+      }
+      .form-group p {
+        font-size: 0.9em;
+      }
+    }
+    .english {
+      text-align: left;
+    }
+
+    /* شاشة التحميل داخل الفريم */
+    #loading-screen {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      font-family: 'Lateef', serif;
+      color: #007bff;
+      font-size: 20px;
+    }
+    #loading-screen img {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+    /* إخفاء شاشة التحميل */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-frame" style="position:relative;">
+    <!-- شاشة التحميل -->
+    <div id="loading-screen">
+      <img src="logo.png" alt="شعار الأكاديمية" />
+      <div id="loading-text">...جاري التحميل</div>
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <h1></h1>
+        <div class="language-switch">
+          <button onclick="changeLanguage('en')">English</button>
+          <button onclick="changeLanguage('ar')">العربية</button>
+        </div>
+        <a href="index.html" class="back-button">←</a>
+      </div>
+      <div class="form-group" id="content">
+        <h1 style="font-family:'Lateef', serif;">:عن الأكاديمية</h1>
+        <p style="font-family:'Lateef', serif;">انطلاقًا من إدراك أهمية التدريب وتطوير الموارد البشرية، بدأت أكاديمية المياه مشوارها في العام 1982 بهدف تدريب موظفي قطاع المياه في كل من الجبيل وجدة، ومنذ ذلك الحين، بدأت مسيرة التدريب وتطوير الموارد البشرية، مواكبة لأحدث الأساليب والنظم والمنهجيات التدريبية في القطاع، وقد استمرت هذه المسيرة لأكثر من 40 عامًا، لتنتج كوادر نوعية يشهد لها سوق العمل في القطاعين العام والخاص.</p>
+        <p style="font-family:'Lateef', serif;">في عامي 2010-2011، بدأت الأكاديمية بتقديم خدمات تدريبية لمنسوبي القطاعات الأخرى، بعد موافقة مجلس الإدارة على التشغيل الاستثماري، جاء ذلك في إطار مشروع التحول التجاري، مما أتاح باستقطاب العديد من المنتسبين في القطاعين الحكومي والخاص، سواء من داخل المملكة أو من خارجها، ليفتح ذلك آفاقًا أوسع للتدريب والارتقاء بالخدمات التدريبية وانتشارها عالميًا، ونشر المعرفة وفق رؤية طموحة تهدف إلى تعزيز استدامة إنتاج المياه.</p>
+        <p style="font-family:'Lateef', serif;">وتهدف الأكاديمية إلى تقديم تجربة تعليمية وتدريبية متكاملة، تعتمد على منهجيات وتقنيات التعلم الحديثة، بما يتوافق مع المستهدفات الحالية والمتطلبات التدريبية لسوق العمل. وتطمح إلى الارتقاء بالكفاءات البشرية وتهيئتها لسوق العمل، وذلك كجزء من مستهدفات رؤية المملكة 2030.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showLoading(lang) {
+      const loadingScreen = document.getElementById('loading-screen');
+      const loadingText = document.getElementById('loading-text');
+      loadingText.innerText = (lang === 'en') ? 'Loading...' : '...جاري التحميل';
+      loadingScreen.classList.remove('hidden');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading-screen').classList.add('hidden');
+    }
+
+    function changeLanguage(lang) {
+      showLoading(lang);
+      localStorage.setItem('language', lang);
+
+      setTimeout(() => {
+        const content = document.getElementById('content');
+        if (lang === 'en') {
+          content.innerHTML = `
+            <h1 class="english">About Academy:</h1>
+            <p class="english">Starting from the recognition of the importance of training and developing human resources, the Water Academy began its journey in 1982 with the aim of training water sector employees in Jubail and Jeddah. Since then, the training and development journey has begun, keeping pace with the latest methods, systems, and training methodologies in the sector, and this journey has continued for more than 40 years, producing quality cadres recognized by the labor market in both the public and private sectors.</p>
+            <p class="english">In 2010-2011, the academy began providing training services to employees of other sectors, after the board of directors approved investment operations, as part of the commercial transformation project, which allowed attracting many participants from the government and private sectors, both from within the Kingdom and outside, opening wider horizons for training and enhancing training services and their global spread, and disseminating knowledge in line with an ambitious vision aimed at enhancing the sustainability of water production.</p>
+            <p class="english">The academy aims to provide a comprehensive educational and training experience, based on modern learning methodologies and techniques, in line with current targets and training requirements of the labor market. It aspires to elevate human competencies and prepare them for the labor market, as part of the targets of Vision 2030.</p>
+          `;
+          content.classList.add('english');
+        } else {
+          content.innerHTML = `
+            <h1 style="font-family:'Lateef', serif;">:عن الأكاديمية</h1>
+            <p style="font-family:'Lateef', serif;">انطلاقًا من إدراك أهمية التدريب وتطوير الموارد البشرية، بدأت أكاديمية المياه مشوارها في العام 1982 بهدف تدريب موظفي قطاع المياه في كل من الجبيل وجدة، ومنذ ذلك الحين، بدأت مسيرة التدريب وتطوير الموارد البشرية، مواكبة لأحدث الأساليب والنظم والمنهجيات التدريبية في القطاع، وقد استمرت هذه المسيرة لأكثر من 40 عامًا، لتنتج كوادر نوعية يشهد لها سوق العمل في القطاعين العام والخاص.</p>
+            <p style="font-family:'Lateef', serif;">في عامي 2010-2011، بدأت الأكاديمية بتقديم خدمات تدريبية لمنسوبي القطاعات الأخرى، بعد موافقة مجلس الإدارة على التشغيل الاستثماري، جاء ذلك في إطار مشروع التحول التجاري، مما أتاح باستقطاب العديد من المنتسبين في القطاعين الحكومي والخاص، سواء من داخل المملكة أو من خارجها، ليفتح ذلك آفاقًا أوسع للتدريب والارتقاء بالخدمات التدريبية وانتشارها عالميًا، ونشر المعرفة وفق رؤية طموحة تهدف إلى تعزيز استدامة إنتاج المياه.</p>
+            <p style="font-family:'Lateef', serif;">وتهدف الأكاديمية إلى تقديم تجربة تعليمية وتدريبية متكاملة، تعتمد على منهجيات وتقنيات التعلم الحديثة، بما يتوافق مع المستهدفات الحالية والمتطلبات التدريبية لسوق العمل. وتطمح إلى الارتقاء بالكفاءات البشرية وتهيئتها لسوق العمل، وذلك كجزء من مستهدفات رؤية المملكة 2030.</p>
+          `;
+          content.classList.remove('english');
+        }
+        hideLoading();
+      }, 500);
+    }
+
+    window.onload = function() {
+      const lang = localStorage.getItem('language') || 'ar';
+      showLoading(lang);
+      changeLanguage(lang);
+      setTimeout(hideLoading, 500);
+    };
+  </script>
+
+</body>
+</html>

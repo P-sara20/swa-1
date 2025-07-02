@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأخبار - Water Academy</title>
+    <link rel="stylesheet" href="styles.css"> <!-- ربط ملف CSS الخارجي -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .mobile-frame {
+            width: 375px; /* عرض الهاتف */
+            height: 667px; /* ارتفاع الهاتف */
+            margin: 0 auto; /* توسيط الفريم */
+            overflow: hidden; /* إخفاء أي محتوى يتجاوز الفريم */
+        }
+        .header {
+            background-size: cover;
+            background-position: center;
+            height: 150px; /* ارتفاع الرأس */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative; /* لجعل العناصر المطلقة تتناسب مع الرأس */
+        }
+        .language-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* خلفية نصف شفافة */
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 1.2em;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .nav-links {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .nav-links button {
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group {
+            padding: 15px; /* تقليل padding */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px; /* تقليل الهامش */
+        }
+        .news-item {
+            margin-bottom: 20px; /* تباعد بين عناصر الأخبار */
+        }
+        .news-item img {
+            width: 100%; /* جعل عرض الصورة 100% من العنصر الأب */
+            height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+            border-radius: 10px;
+        }
+        .news-item h3 {
+            margin: 10px 0 5px; /* تباعد بين العنوان والنص */
+        }
+        .news-item p {
+            line-height: 1.5; /* تحسين تباعد الأسطر */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <div class="container">
+            <div class="header">
+                <h1>الأخبار</h1>
+                <div class="language-switch">
+                    <button onclick="changeLanguage('en')">English</button>
+                    <button onclick="changeLanguage('ar')">العربية</button>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <button onclick="window.location.href='programs.html'">البرامج</button>
+                <button onclick="window.location.href='index.html'">العودة إلى الرئيسية</button>
+            </div>
+
+            <!-- قسم الأخبار -->
+            <div class="form-group">
+                <div class="news-item">
+                    <img src="WorldWaterDay.png" alt="يوم المياه العالمي">
+                    <h3>يوم المياه العالمي</h3>
+                    <p>30 شعبان 1444 / 22 مارس 2023</p>
+                    <p>جزء من مسؤوليتنا في الحفاظ على مواردنا المائية وحماية طبيعتنا نتزامن اليوم مع اليوم العالمي للمياه لبناء جيل واعي ليستشعر قيمة المياه، وأعلنت الأكاديمية السعودية للمياه إطلاق أول أكاديمية للأطفال "أكاديمية أجيال" لتعزيز التوعية بقيمة الماء في حياتنا ودورها في تنميتنا واستدامة ريادتنا.</p>
+                </div>
+                <div class="news-item">
+                    <img src="CIWEM Accreditation Certificate.png" alt="شهادة الاعتماد CIWEM">
+                    <h3>شهادة الاعتماد CIWEM</h3>
+                    <p>3 جمادى ثاني 1444 / 27 ديسمبر 2022</p>
+                    <p>في إنجاز جديد الأكاديمية تحصل على شهادة الاعتماد من المعهد القانوني لإدارة البيئة والمياه CIWEM لتقديم برامج نوعية في مجالات المياه والبيئة والاستدامة.</p>
+                </div>
+                <div class="news-item">
+                    <img src="Saudi Arabia’s Rivers in the Seen program.png" alt="أنهار السعودية في برنامج سين">
+                    <h3>أنهار السعودية في برنامج سين</h3>
+                    <p>5 رمضان 1444 / 27 مارس 2023</p>
+                    <p>عرضت على قناة MBC حلقة أنهار السعودية في برنامج سين وتطرقت لعدة مواضيع أهمها نجاح المؤسسة واعتزازها بدورها الفعّال في تنمية الكفاءات وتأهيلها ومواجهتها لتحديات صعبة.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Inline JavaScript -->
+    <script>
+        function changeLanguage(lang) {
+            if (lang === 'en') {
+                document.querySelector('.header h1').innerText = 'News';
+                document.querySelector('.language-switch p').innerText = 'Change Language:';
+                document.querySelectorAll('.news-item h3')[0].innerText = 'World Water Day';
+                document.querySelectorAll('.news-item p')[0].innerText = 'March 22, 2023';
+                document.querySelectorAll('.news-item p')[1].innerText = 'As part of our responsibility to preserve our water resources and protect our nature, we coincide today with World Water Day to build a conscious generation to feel the value of water. The Saudi Water Academy announced the launch of the first academy for children, "Ajeel Academy," to enhance awareness of the value of water in our lives and its role in our development and the sustainability of our leadership.';
+                document.querySelectorAll('.news-item h3')[1].innerText = 'CIWEM Accreditation Certificate';
+                document.querySelectorAll('.news-item p')[2].innerText = 'December 27, 2022';
+                document.querySelectorAll('.news-item p')[3].innerText = 'In a new achievement, the academy receives accreditation from the Chartered Institution of Water and Environmental Management (CIWEM) to provide quality programs in the fields of water, environment, and sustainability.';
+                document.querySelectorAll('.news-item h3')[2].innerText = 'Saudi Arabia’s Rivers in the Seen Program';
+                document.querySelectorAll('.news-item p')[4].innerText = 'March 27, 2023';
+                document.querySelectorAll('.news-item p')[5].innerText = 'An episode about Saudi Arabia’s rivers was aired on MBC in the Seen program, addressing several topics, most importantly the institution’s success and pride in its effective role in developing competencies and qualifying them to face difficult challenges.';
+            } else {
+                document.querySelector('.header h1').innerText = 'الأخبار';
+                document.querySelector('.language-switch p').innerText = 'تغيير اللغة:';
+                document.querySelectorAll('.news-item h3')[0].innerText = 'يوم المياه العالمي';
+                document.querySelectorAll('.news-item p')[0].innerText = '30 شعبان 1444 / 22 مارس 2023';
+                document.querySelectorAll('.news-item p')[1].innerText = 'جزء من مسؤوليتنا في الحفاظ على مواردنا المائية وحماية طبيعتنا نتزامن اليوم مع اليوم العالمي للمياه لبناء جيل واعي ليستشعر قيمة المياه، وأعلنت الأكاديمية السعودية للمياه إطلاق أول أكاديمية للأطفال "أكاديمية أجيال" لتعزيز التوعية بقيمة الماء في حياتنا ودورها في تنميتنا واستدامة ريادتنا.';
+                document.querySelectorAll('.news-item h3')[1].innerText = 'شهادة الاعتماد CIWEM';
+                document.querySelectorAll('.news-item p')[2].innerText = '3 جمادى ثاني 1444 / 27 ديسمبر 2022';
+                document.querySelectorAll('.news-item p')[3].innerText = 'في إنجاز جديد الأكاديمية تحصل على شهادة الاعتماد من المعهد القانوني لإدارة البيئة والمياه CIWEM لتقديم برامج نوعية في مجالات المياه والبيئة والاستدامة.';
+                document.querySelectorAll('.news-item h3')[2].innerText = 'أنهار السعودية في برنامج سين';
+                document.querySelectorAll('.news-item p')[4].innerText = '5 رمضان 1444 / 27 مارس 2023';
+                document.querySelectorAll('.news-item p')[5].innerText = 'عرضت على قناة MBC حلقة أنهار السعودية في برنامج سين وتطرقت لعدة مواضيع أهمها نجاح المؤسسة واعتزازها بدورها الفعّال في تنمية الكفاءات وتأهيلها ومواجهتها لتحديات صعبة.';
+            }
+        }
+    </script>
+
+</body>
+</html>

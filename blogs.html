@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>الأخبار</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Palatino Linotype', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+         .mobile-frame {
+             border-radius: 20px;
+            width: 375px; /* عرض الهاتف */
+            height: 667px; /* ارتفاع الهاتف */            
+            max-width: 400px; /* عرض أقصى للفريم */
+            margin: 0 auto; /* توسيط الفريم */
+            overflow: hidden; /* إخفاء أي محتوى يتجاوز الفريم */
+            position: relative; /* لجعل الفوتر داخل الفريم */
+        }
+        .header {
+            background-image: url('About.png');
+            background-size: cover;
+            background-position: center;
+            height: 140px; /* ارتفاع الرأس */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative; /* لجعل العناصر المطلعة تتناسب مع الرأس */
+        }
+        .language-switch {
+        position: absolute;
+            top: 10px;
+            right: 10px; /* موضع زر تغيير اللغة */
+            background-color: rgba(255, 255, 255, 0.8); /* خلفية نصف شفافة */
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 1.2em;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 15;
+        }
+        .form-group {
+            padding: 15px; /* تقليل padding */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px; /* تقليل الهامش */
+            overflow-y: auto;
+            height: 480px;
+        }
+        .news-item {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-item:hover {
+            transform: scale(1.01);
+        }
+        .news-item img {
+            border-radius: 0;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .news-item h3 {
+            font-size: 1.2em;
+            margin: 12px 15px 5px;
+            color: #333;
+        }
+        .news-item p {
+            margin: 0 15px 10px;
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.6;
+        }
+        .news-item p:first-of-type {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .english {
+            text-align: left; /* محاذاة النص لليسار */
+        }
+        .arabic {
+            text-align: right; /* محاذاة النص لليمين */
+        }
+        /* شاشة التحميل */
+        #loadingScreen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.3); /* شفاف بوضوح */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  font-family: 'Lateef', serif;
+  color: #007bff;
+  font-size: 20px;
+  backdrop-filter: blur(3px); /* خيار إضافي جميل */
+}
+
+        #loadingScreen img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        #loadingText {
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-frame">
+        <!-- شاشة التحميل -->
+        <div id="loadingScreen" style="font-family:'Lateef', serif;" >
+            <img src="logo.png" alt="شعار الأكاديمية" />
+            <div id="loadingText">...جاري التحميل</div>
+        </div>
+
+        <div class="container" id="mainContent" style="display:none;">
+            <div class="header">
+                <div class="language-switch">
+                    <button onclick="changeLanguage('en')">English</button>
+                    <button onclick="changeLanguage('ar')">العربية</button>
+                </div>
+                <a href="index.html" class="back-button">←</a> <!-- سهم العودة -->
+            </div>
+            <h1 id="newsTitle" style="text-align: right; font-family:'Lateef', serif;">الأخبار</h1>
+
+            <div class="form-group" id="content">
+                <div class="news-item arabic">
+                    <img src="WorldWaterDay.png" alt="يوم المياه العالمي" />
+                    <h3 style="font-family:'Lateef', serif;">يوم المياه العالمي</h3>
+                    <p style="font-family:'Lateef', serif;">30 شعبان 1444</p>
+                    <p style="font-family:'Lateef', serif;">
+                        جزء من مسؤوليتنا في الحفاظ على مواردنا المائية وحماية طبيعتنا نتزامن اليوم مع اليوم العالمي للمياه لبناء جيل واعي ليستشعر قيمة المياه، وأعلنت الأكاديمية السعودية للمياه إطلاق أول أكاديمية للأطفال "أكاديمية أجيال" لتعزيز التوعية بقيمة الماء في حياتنا ودورها في تنميتنا واستدامة ريادتنا.
+                    </p>
+                </div>
+                <div class="news-item arabic">
+                    <img src="CIWEM Accreditation Certificate.png" alt="شهادة الاعتماد CIWEM" />
+                    <h3 style="font-family:'Lateef', serif;">شهادة الاعتماد CIWEM</h3>
+                    <p style="font-family:'Lateef', serif;">3 جمادى ثاني 1444</p>
+                    <p style="font-family:'Lateef', serif;">
+                        في إنجاز جديد الأكاديمية تحصل على شهادة الاعتماد من المعهد القانوني لإدارة البيئة والمياه CIWEM لتقديم برامج نوعية في مجالات المياه والبيئة والاستدامة.
+                    </p>
+                </div>
+                <div class="news-item arabic">
+                    <img src="Saudi Arabia’s Rivers in the Seen program.png" alt="أنهار السعودية في برنامج سين" />
+                    <h3 style="font-family:'Lateef', serif;">أنهار السعودية في برنامج سين</h3>
+                    <p style="font-family:'Lateef', serif;">5 رمضان 1444</p>
+                    <p style="font-family:'Lateef', serif;">
+                        عرضت على قناة MBC حلقة أنهار السعودية في برنامج سين وتطرقت لعدة مواضيع أهمها نجاح المؤسسة واعتزازها بدورها الفعّال في تنمية الكفاءات وتأهيلها ومواجهتها لتحديات صعبة.
+                    </p>
+                </div>
+                <div class="news-item arabic">
+                    <img src="Reliance on distributive control systems training.png" alt="الاعتماد في التدريب على أنظمة التحكم التوزيعي" />
+                    <h3 style="font-family:'Lateef', serif;">الاعتماد في التدريب على أنظمة التحكم التوزيعي</h3>
+                    <p style="font-family:'Lateef', serif;">24 شعبان 1444</p>
+                    <p style="font-family:'Lateef', serif;">
+                        حصلت الأكاديمية السعودية للمياه على الاعتماد في التدريب على أنظمة التحكم التوزيعي من خلال تفعيل شراكتها مع @ABBinksa كأول مماثل تحكم معتمد من شركة ABB في الشرق الأوسط.
+                    </p>
+                </div>
+                <div class="news-item arabic">
+                    <img src="The Academy obtains the institutional accreditation certificate.png" alt="حصول الاكاديمية على شهادة الاعتماد المؤسسي" />
+                    <h3 style="font-family:'Lateef', serif;">حصول الأكاديمية على شهادة الاعتماد المؤسسي</h3>
+                    <p style="font-family:'Lateef', serif;">18 رمضان 1444 </p>
+                    <p style="font-family:'Lateef', serif;">
+                        حصلت الأكاديمية السعودية للمياه على شهادة الاعتماد المؤسسي الكامل لمدة 3 سنوات من أبريل 2023م إلى مارس 2026م، وتمكنت الأكاديمية من تطبيق كافة المتطلبات والاشتراطات المطلوبة للحصول على الشهادة، ويأتي هذا الإنجاز إضافة لمجموعة من الإنجازات، وتفخر الأكاديمية السعودية للمياه بأن تكون جزءًا من هذا الإنجاز من أجل وطن مزدهر ومستدام.
+                    </p>
+                </div>
+                <div class="news-item arabic">
+                    <img src="Saudi Water Academy Achieves Arab Award.png" alt="الاكاديمية السعودية للمياه تحقق الجائزة العربية" />
+                    <h3 style="font-family:'Lateef', serif;">الأكاديمية السعودية للمياه تحقق الجائزة العربية</h3>
+                    <p style="font-family:'Lateef', serif;">17 جمادى الثانية 1444 </p>
+                    <p style="font-family:'Lateef', serif;">
+                        الأكاديمية السعودية للمياه، التابعة "للتحلية"، تحقق الجائزة العربية للتشغيل والصيانة كأفضل أكاديمية في قطاع التشغيل والصيانة وإدارة المرافق في العالم العربي في المؤتمر الدولي العشرين للتشغيل والصيانة في الدول العربية للعام 2022م.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       window.onload = function() {
+  const lang = localStorage.getItem('language') || 'ar';
+  showLoading(lang);
+
+  // إظهار شاشة التحميل + إخفاء المحتوى
+  document.getElementById('loadingScreen').style.display = 'flex';
+  document.getElementById('mainContent').style.display = 'none';
+
+  setTimeout(() => {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    changeLanguage(lang);
+  }, 500);
+};
+
+function showLoading(lang) {
+  document.getElementById('loadingText').innerText = (lang === 'ar') ? '...جاري التحميل' : 'Loading...';
+}
+
+function changeLanguage(lang) {
+  // عند تغيير اللغة، أظهر شاشة التحميل وأخفي المحتوى
+  document.getElementById('loadingScreen').style.display = 'flex';
+  document.getElementById('mainContent').style.display = 'none';
+
+  localStorage.setItem('language', lang);
+  showLoading(lang);
+
+  setTimeout(() => {
+    const isArabic = (lang === 'ar');
+
+    // تحديث العنوان
+    document.getElementById('newsTitle').innerText = isArabic ? 'الأخبار' : 'News';
+    document.getElementById('newsTitle').style.textAlign = isArabic ? 'right' : 'left';
+
+            const newsItems = [
+                {
+                    titleAr: 'يوم المياه العالمي',
+                    titleEn: 'World Water Day',
+                    dateAr: 'شعبان 30 1444',
+                    dateEn: 'March 22, 2023',
+                    contentAr: 'جزء من مسؤوليتنا في الحفاظ على مواردنا المائية وحماية طبيعتنا نتزامن اليوم مع اليوم العالمي للمياه لبناء جيل واعي ليستشعر قيمة المياه، وأعلنت الأكاديمية السعودية للمياه إطلاق أول أكاديمية للأطفال "أكاديمية أجيال" لتعزيز التوعية بقيمة الماء في حياتنا ودورها في تنميتنا واستدامة ريادتنا.',
+                    contentEn: 'As part of our responsibility to preserve our water resources and protect our nature, we coincide today with World Water Day to build a conscious generation to feel the value of water. The Saudi Water Academy announced the launch of the first academy for children, "Ajeel Academy," to enhance awareness of the value of water in our lives and its role in our development and the sustainability of our leadership.'
+                },
+                {
+                    titleAr: 'شهادة الاعتماد CIWEM',
+                    titleEn: 'CIWEM Accreditation Certificate',
+                    dateAr: 'جمادى الثاني 3 1444',
+                    dateEn: 'December 27, 2022',
+                    contentAr: 'في إنجاز جديد الأكاديمية تحصل على شهادة الاعتماد من المعهد القانوني لإدارة البيئة والمياه CIWEM لتقديم برامج نوعية في مجالات المياه والبيئة والاستدامة.',
+                    contentEn: 'In a new achievement, the academy receives accreditation from the Chartered Institution of Water and Environmental Management (CIWEM) to provide quality programs in the fields of water, environment, and sustainability.'
+                },
+                {
+                    titleAr: 'أنهار السعودية في برنامج سين',
+                    titleEn: 'Saudi Arabia’s Rivers in the Seen Program',
+                    dateAr: 'رمضان 5 1444',
+                    dateEn: 'March 27, 2023',
+                    contentAr: 'عرضت على قناة MBC حلقة أنهار السعودية في برنامج سين وتطرقت لعدة مواضيع أهمها نجاح المؤسسة واعتزازها بدورها الفعّال في تنمية الكفاءات وتأهيلها ومواجهتها لتحديات صعبة.',
+                    contentEn: 'An episode about Saudi Arabia’s rivers was aired on MBC in the Seen program, addressing several topics, most importantly the institution’s success and pride in its effective role in developing competencies and qualifying them to face difficult challenges.'
+                },
+                {
+                    titleAr: 'الاعتماد في التدريب على أنظمة التحكم التوزيعي',
+                    titleEn: 'Reliance on Distributive Control Systems Training',
+                    dateAr: 'شعبان 24 1444',
+                    dateEn: 'March 16, 2023',
+                    contentAr: 'حصلت الأكاديمية السعودية للمياه على الاعتماد في التدريب على أنظمة التحكم التوزيعي من خلال تفعيل شراكتها مع @ABBinksa كأول مماثل تحكم معتمد من شركة ABB في الشرق الأوسط.',
+                    contentEn: 'The Saudi Water Academy obtains accreditation in training on distributive control systems by activating its partnership with @ABBinksa as the first similar control certified by ABB in the Middle East.'
+                },
+                {
+                    titleAr: 'حصول الأكاديمية على شهادة الاعتماد المؤسسي',
+                    titleEn: 'The Academy Obtains the Institutional Accreditation Certificate',
+                    dateAr: 'رمضان 18 1444',
+                    dateEn: 'April 9, 2023',
+                    contentAr: 'حصلت الأكاديمية السعودية للمياه على شهادة الاعتماد المؤسسي الكامل لمدة 3 سنوات من أبريل 2023م إلى مارس 2026م، وتمكنت الأكاديمية من تطبيق كافة المتطلبات والاشتراطات المطلوبة للحصول على الشهادة، ويأتي هذا الإنجاز إضافة لمجموعة من الإنجازات، وتفخر الأكاديمية السعودية للمياه بأن تكون جزءًا من هذا الإنجاز من أجل وطن مزدهر ومستدام.',
+                    contentEn: 'The Saudi Water Academy obtained the full institutional accreditation certificate for a period of 3 years from April 2023 to March 2026, and the Academy was able to apply all the requirements necessary to obtain the certificate, and this achievement comes in addition to a set of achievements, and the Saudi Water Academy is proud to be part of this achievement for a prosperous and sustainable country.'
+                },
+                {
+                    titleAr: 'الأكاديمية السعودية للمياه تحقق الجائزة العربية',
+                    titleEn: 'Saudi Water Academy Achieves Arab Award',
+                    dateAr: 'جمادى الثاني 17 1444',
+                    dateEn: 'January 10, 2023',
+                    contentAr: 'الأكاديمية السعودية للمياه، التابعة "للتحلية"، تحقق الجائزة العربية للتشغيل والصيانة كأفضل أكاديمية في قطاع التشغيل والصيانة وإدارة المرافق في العالم العربي في المؤتمر الدولي العشرين للتشغيل والصيانة في الدول العربية للعام 2022م.',
+                    contentEn: 'The Saudi Water Academy, affiliated to "Desalination", achieves the Arab Award for Operation and Maintenance as the best academy in the operation and maintenance sector and facilities management in the Arab world at the 20th International Conference on Operation and Maintenance in the Arab Countries for the year 2022.'
+                }
+            ];
+
+            // تحديث الأخبار
+          const newsElements = document.querySelectorAll('.news-item');
+    newsElements.forEach((item, index) => {
+      if (index < newsItems.length) {
+        const news = newsItems[index];
+        item.querySelector('h3').innerText = isArabic ? news.titleAr : news.titleEn;
+        const ps = item.querySelectorAll('p');
+        if (ps.length >= 2) {
+          ps[0].innerText = isArabic ? news.dateAr : news.dateEn;
+          ps[1].innerText = isArabic ? news.contentAr : news.contentEn;
+        }
+        item.classList.toggle('arabic', isArabic);
+        item.classList.toggle('english', !isArabic);
+      }
+    });
+
+    // أخفِ شاشة التحميل وأظهر المحتوى
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  }, 500);
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>البرامج</title>
+      <link rel="stylesheet" href="styles.css"> <!-- ربط ملف CSS الخارجي -->
+  <style>
+    body {
+      font-family: 'Palatino Linotype', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .mobile-frame {
+            width: 375px; /* عرض الهاتف */
+            height: 667px; /* ارتفاع الهاتف */
+            margin: 0 auto; /* توسيط الفريم */
+            overflow: auto; /* إخفاء أي محتوى يتجاوز الفريم */
+            position: relative; /* لجعل الفوتر داخل الفريم */
+
+        }
+        .header {
+            background-image: url('About.png');
+            background-size: cover;
+            background-position: center;
+            height: 140px; /* ارتفاع الرأس */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative; /* لجعل العناصر المطلعة تتناسب مع الرأس */
+        }
+        .language-switch {
+           position: absolute;
+            top: 10px;
+            right: 10px; /* موضع زر تغيير اللغة */
+            background-color: rgba(255, 255, 255, 0.8); /* خلفية نصف شفافة */
+            border-radius: 5px;
+            padding: 5px;
+        }
+    .language-switch button {
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 1.5em;
+      text-decoration: none;
+      background-color: rgba(0,0,0,0.5);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    h1, h2, h3, p {
+      margin: 10px 15px;
+    }
+    .form-group {
+      padding: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 90%;
+      margin: 15px auto;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+    .course-item {
+      margin: 15px 0;
+      text-align: center;
+    }
+    .course-item img {
+      width: 100%;
+      max-width: 330px;
+      height: auto;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .course-item h3 {
+      cursor: pointer;
+      font-family: 'Lateef', serif;
+    }
+    /* Modal */
+    #courseDetailsModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #courseDetailsModal .modal-content {
+      background: white;
+      max-width: 400px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 15px;
+      padding: 20px;
+      position: relative;
+      font-family: 'Lateef', serif;
+      direction: rtl;
+    }
+    #courseDetailsModal .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 1.7em;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+    #courseDetailsModal ul {
+      padding-inline-start: 20px;
+    }
+    .loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    font-family: 'Lateef', serif;
+    font-size: 1.4em;
+    color: #007bff;
+  }
+  .loading-screen.hidden {
+    display: none !important;
+  }
+  </style>
+</head>
+<body>
+
+<div class="mobile-frame">
+    <div id="loading-screen" class="loading-screen hidden">
+    <img src="logo.png" alt="logo" style="width: 100px; margin-bottom: 10px;">
+    <div id="loading-text">...جاري التحميل</div>
+  </div>
+  <div class="header">
+    <div class="language-switch">
+      <button onclick="changeLanguage('en')">English</button>
+      <button onclick="changeLanguage('ar')">العربية</button>
+    </div>
+    <a href="index.html" class="back-button">←</a>
+    <h1 id="programsTitle" style="text-align: right; font-family:'Lateef', serif; width: 100%;"></h1>
+  </div>
+
+  <div class="form-group">
+    <h2 id="availablePrograms" style="text-align: center; font-family:'Lateef', serif;">:البرامج المتاحة</h2>
+
+    <!-- الدورة الأولى -->
+    <div class="course-item">
+      <img src="course1.png" alt="" id="course1Img" onclick="openCourseDetails('course1')" />
+      <h3 id="course1Title" onclick="openCourseDetails('course1')"></h3>
+      <p id="course1ShortDesc"></p>
+    </div>
+
+    <!-- الدورة الثانية -->
+    <div class="course-item">
+      <img src="course2.png" alt="" id="course2Img" onclick="openCourseDetails('course2')" />
+      <h3 id="course2Title" onclick="openCourseDetails('course2')"></h3>
+      <p id="course2ShortDesc"></p>
+    </div>
+
+    <!-- الدورة الثالثة -->
+    <div class="course-item">
+      <img src="course3.png" alt="" id="course3Img" onclick="openCourseDetails('course3')" />
+      <h3 id="course3Title" onclick="openCourseDetails('course3')"></h3>
+      <p id="course3ShortDesc"></p>
+    </div>
+
+    <!-- الدورة الرابعة -->
+    <div class="course-item">
+      <img src="course4.png" alt="" id="course4Img" onclick="openCourseDetails('course4')" />
+      <h3 id="course4Title" onclick="openCourseDetails('course4')"></h3>
+      <p id="course4ShortDesc"></p>
+    </div>
+
+    <!-- الدورة الخامسة -->
+    <div class="course-item">
+      <img src="course5.png" alt="" id="course5Img" onclick="openCourseDetails('course5')" />
+      <h3 id="course5Title" onclick="openCourseDetails('course5')"></h3>
+      <p id="course5ShortDesc"></p>
+    </div>
+        <!-- الدورة السادسة -->
+    <div class="course-item">
+      <img src="course6.png" alt="" id="course6Img" onclick="openCourseDetails('course6')" />
+      <h3 id="course6Title" onclick="openCourseDetails('course6')"></h3>
+      <p id="course6ShortDesc"></p>
+    </div>
+        <!-- الدورة السابعة -->
+    <div class="course-item">
+      <img src="course7.png" alt="" id="course7Img" onclick="openCourseDetails('course7')" />
+      <h3 id="course7Title" onclick="openCourseDetails('course7')"></h3>
+      <p id="course7ShortDesc"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="courseDetailsModal" onclick="closeCourseDetails(event)">
+  <div class="modal-content" id="modalContent">
+    <button class="close-btn" onclick="closeCourseDetails()">×</button>
+    <h2 id="modalCourseTitle"></h2>
+    <h3 id="modalOverviewTitle"></h3>
+    <p id="modalOverview"></p>
+    <h3 id="modalOutcomesTitle"></h3>
+    <ul id="modalOutcomesList"></ul>
+    <h3 id="modalTargetTitle"></h3>
+    <p id="modalTarget"></p>
+    <h3 id="modalInfoTitle"></h3>
+    <p id="modalComingSoon"></p>
+    <p id="modalPrice"></p>
+    <p id="modalCategory"></p>
+    <p id="modalLanguage"></p>
+    <p id="modalDuration"></p>
+    <p id="modalLocation"></p>
+  </div>
+</div>
+
+
+<script>
+  const courseData = {
+    ar: {
+      course1: {
+        title: "ضابط إطفاء المستوى الأول",
+        shortDesc: "تزويد المشاركين بالمعرفة والمهارات اللازمة لتولي مهام ضابط إطفاء المستوى الأول وفقًا لمعايير NFPA 1021، مع التركيز على القيادة، وإدارة الطوارئ، وتنظيم عمليات الإطفاء.",
+        overviewTitle: "نبذة",
+        overview: "تزويد المشاركين بالمعرفة والمهارات اللازمة لتولي مهام ضابط إطفاء المستوى الأول وفقًا لمعايير NFPA 1021، مع التركيز على القيادة، وإدارة الطوارئ، وتنظيم عمليات الإطفاء.",
+        outcomesTitle: "المخرجات",
+        outcomes: [
+          "فهم معايير NFPA 1021 ودورها في تنظيم مهنة الإطفاء.",
+          "تطوير مهارات القيادة والإشراف في عمليات الإطفاء.",
+          "تعلم أساليب تقييم المخاطر واتخاذ القرارات في حالات الطوارئ.",
+          "إتقان تقنيات تنظيم وتوجيه الفرق خلال العمليات الطارئة.",
+          "تطبيق استراتيجيات السلامة والوقاية في بيئات العمل الخطرة."
+        ],
+        targetTitle: "الفئة المستهدفة",
+        target: "ضباط الإطفاء، قادة الفرق، المسؤولون عن الأمن والسلامة في المنشآت، وممارسو مهنة الإطفاء.",
+        infoTitle: "معلومات إضافية",
+        comingSoon: "قريبًا!",
+        price: "2,750.00 ر.س",
+        category: "التصنيف: البرامج التطويرية",
+        language: "اللغة: إنجليزي",
+        duration: "المدة: 5 يوم",
+        location: "الموقع: الجبيل",
+        imgAlt: "ضابط إطفاء المستوى الأول"
+      },
+      course2: {
+  title: "NFPA 1081 فرقة الإطفاء الصناعية",
+  shortDesc: "تمكين المشاركين من اكتساب المهارات والمعرفة اللازمة للاستجابة للحرائق الصناعية حسب معايير NFPA 1081.",
+  overviewTitle: "نبذة",
+  overview: "تهدف هذه الدورة إلى تمكين المشاركين من اكتساب المهارات والمعرفة اللازمة للاستجابة للحرائق الصناعية، مع التركيز على معايير NFPA 1081. تشمل الدورة تدريباً عملياً ونظرياً حول تقنيات مكافحة الحرائق، واستخدام المعدات، وإجراءات السلامة في البيئات الصناعية.",
+  outcomesTitle: "المخرجات",
+  outcomes: [
+    "فهم معايير NFPA 1081 ومتطلباتها.",
+    "تطوير مهارات مكافحة الحرائق في المنشآت الصناعية.",
+    "اكتساب القدرة على تقييم المواقف واتخاذ القرار السليم أثناء الطوارئ.",
+    "التدريب على استخدام معدات الإطفاء الشخصية والجماعية.",
+    "تعزيز العمل الجماعي والتواصل الفعّال أثناء عمليات الإطفاء."
+  ],
+  targetTitle: "الفئة المستهدفة",
+  target: "أعضاء فرق الإطفاء الصناعية، موظفو الأمن والسلامة، الأفراد العاملون في المنشآت الصناعية المعرضة لخطر الحرائق.",
+  infoTitle: "معلومات إضافية",
+  comingSoon: "قريبًا!",
+  price: "2,750.00 ر.س",
+  category: "التصنيف: البرامج التطويرية",
+  language: "اللغة: إنجليزي",
+  duration: "المدة: 5 أيام",
+  location: "الموقع: الجبيل",
+  imgAlt: "NFPA 1081 فرقة الإطفاء الصناعية"
+},
+    course3: {
+  title: "البرنامج العالمي لإدارة المياه",
+  shortDesc: "تزويد المشاركين بالمعرفة والمهارات اللازمة للنجاح في جميع مستويات الإدارة، خاصة في قطاع المياه.",
+  overviewTitle: "نبذة",
+  overview: `تقدم برامج القيادة والإدارة المعرفة والمهارات التي تؤهل المشاركين للعمل والنجاح على جميع مستويات الإدارة، مع التركيز على قطاع المياه. تسلط الضوء على قيادة التحول الرقمي، التحليلات، واستراتيجية الذكاء الاصطناعي من خلال تحليل المدراء لتعظيم نتائج الأعمال. كما تركز على القيادة، العولمة، الاستراتيجية، وتطبيق النظريات والمهارات في البيئة الدولية والسعودية.`,
+  outcomesTitle: "محتويات البرنامج",
+  outcomes: [
+    "القيادة باستخدام التحول الرقمي، التحليلات واستراتيجية الذكاء الاصطناعي: وضع خارطة طريق رقمية مخصصة لقطاع المياه، الانتقال من أسلوب التحكم إلى التمكين والتعاون، دمج الاستراتيجية الرقمية مع القيادة الفعالة للفرق، دراسة حالة وتقييم من دول الخليج تظهر نجاح التحول الرقمي.",
+    "تحليلات الأعمال للمدراء: الأهمية الاستراتيجية للتحليلات في قطاع المياه بدول الخليج، الاستفادة من إنترنت الأشياء والبيانات الحية، بناء ثقافة مدفوعة بالتحليلات تشمل القيادة والمهارات وإدارة التغيير، دراسات حالة وتقييمات وأفضل الممارسات في تحليلات الأعمال.",
+    "تحقيق نتائج الأعمال من خلال الاستراتيجية: تحديد المشهد الاستراتيجي والتحديات والفرص في قطاع المياه بدول الخليج، إدارة المشاريع لتحقيق النجاح، تحسين الكفاءة التشغيلية والاستدامة عبر دمج التكنولوجيا، بناء منظمة مستقبلية جاهزة تشمل المواهب والرشاقة والتحول الثقافي، دراسة حالة وتقييم خرائط طريق تعاونية للنجاح الاستراتيجي."
+  ],
+  targetTitle: "الفئة المستهدفة",
+  target: "المستويات العليا للإدارة، المديرون ورؤساء الأقسام في قطاع المياه، المهندسون الاستشاريون، المدراء ومالكو المؤسسات العامة والخاصة، وأي شخص يرغب في تطوير مهاراته في هذا المجال.",
+  infoTitle: "معلومات إضافية",
+  trainer: `الأستاذ الدكتور نويد ياسين
+دكتوراه، CMgr CCMI، PFHEA، ماجستير تعليم، ماجستير علوم، C.MGr، ChMC CM، PGCL
+
+المنصب الإداري:
+عميد أكاديمي لكلية الأعمال ورئيس هيئة التدريس في جامعة لندن ساوث بانك فرع الإمارات بالتعاون مع شراكات Habitat Global؛ أستاذ كامل في ريادة الأعمال والإدارة ومدير حاضنة إدارة أبوظبي (ADSM)`,
+  time: "من 8 صباحاً حتى 4 مساءً",
+  certificate: "شهادة CMI",
+  attendees: "عدد الحضور: 25",
+  period: "01 مايو 2025 إلى 26 يونيو 2025",
+  price: "11,250.00 ر.س",
+  category: "البرامج العالمية",
+  language: "اللغة: الإنجليزية",
+  duration: "المدة: 5 أيام",
+  level: "المستوى: متقدم",
+  location: "الموقع: الرياض",
+  imgAlt: "برامج القيادة والإدارة"
+},
+course4: {
+  title: "جودة مياه محطات التحلية والمنشآت الصناعية",
+  shortDesc: "تطوير قدرات المشاركين في تحليل ومراقبة جودة المياه وفقًا للمعايير المحلية والدولية.",
+  overviewTitle: "نبذة",
+  overview: "تطوير قدرات المتدربين في تحليل ومراقبة جودة المياه وفقًا للمعايير المحلية والدولية، وتعزيز وفهمهم لمتطلبات الجودة مثل ISO 17025، وتمكينهم من استخدام الأدوات والتقنيات الحديثة لضمان دقة النتائج وكفاءتها، مع تطبيق أفضل الممارسات في إدارة البيانات داخل مختبرات البحث والتطوير.",
+  outcomesTitle: "المخرجات",
+  outcomes: [
+    "تحليل \"مراقبة الجودة\" وتفسير متطلبات ISO 17025 واختبارات الكفاءة.",
+    "التمييز بين المهام التي تضمن تقديم نتائج عالية الجودة وموثوقة.",
+    "تحديد المسؤوليات المتعلقة ببرامج مراقبة وضمان جودة المياه.",
+    "ضمان جودة وصلاحية العينات الخاضعة للتحليل.",
+    "وصف طرق تحليل جودة مياه الشرب والمعايير المحلية والدولية المعتمدة.",
+    "شرح الأجهزة المستخدمة في عرض نتائج التحليل الكيميائي للمياه.",
+    "تفسير ودراسة نتائج تحاليل مراقبة جودة المياه وتقييم كفاءة النتائج الكيميائية.",
+    "استخدام الجداول لتقييم كفاءة ودقة النتائج.",
+    "إدارة البيانات عبر مختبرات البحث والتطوير."
+  ],
+  targetTitle: "الفئة المستهدفة",
+  target: "متخصصو الجودة والمراقبة في مختبرات تحليل المياه، المهندسون والعاملون في مجال معالجة المياه وضمان الجودة، الفنيون والعاملون في مختبرات البحث والتطوير المرتبطة بجودة المياه، مدراء ومشرفو مشاريع معالجة المياه، الطلاب والخريجون في مجالات الهندسة البيئية والكيمياء وعلوم المياه، والعاملون في الجهات الرقابية ومؤسسات الصحة العامة، والشركات والمؤسسات المعالجة للمياه.",
+  infoTitle: "معلومات إضافية",
+  comingSoon: "قريبًا!",
+  price: "2,750.00 ر.س",
+  category: "التصنيف: البرامج التطويرية",
+  language: "اللغة: إنجليزي",
+  duration: "المدة: 5 أيام",
+  location: "الموقع: الجبيل",
+  imgAlt: "جودة مياه محطات التحلية والمنشآت الصناعية"
+},
+course5: {
+  title: "تقنية التناضح العكسي",
+  shortDesc: "فهم المبادئ الأساسية لتحلية المياه باستخدام تقنية التناضح العكسي، واستكشاف تقنيات الأغشية ومكونات النظام وطرق تحسين الكفاءة.",
+  overviewTitle: "نبذة",
+  overview: "عند الانتهاء من هذا البرنامج، سيتمكن المتدربون من وصف ومناقشة وظائف جميع أقسام محطة التناضح العكسي، وشرح مبادئ تحلية المياه.",
+  outcomesTitle: "المخرجات",
+  outcomes: [
+    "تقييم مبادئ التناضح العكسي وتطبيقه في تحلية المياه، مع مراعاة جودة المياه، واختيار الأغشية، وكفاءة استهلاك الطاقة.",
+    "تحليل المفاهيم الأساسية للتناضح وشرح علاقتها بعملية التناضح العكسي في معالجة المياه.",
+    "مقارنة أنواع الأغشية المستخدمة في أنظمة التناضح العكسي من حيث الخصائص والأداء ومدى ملاءمتها لتحلية المياه.",
+    "تصميم نظام ترشيح أولي لمياه التغذية في محطة التناضح العكسي مع التركيز على إزالة الجزيئات، ومنع التكلس، وحماية الأغشية.",
+    "تقييم أهمية أجهزة استعادة الطاقة في تحسين كفاءة واستدامة محطات التناضح العكسي واقتراح طرق لتحسين استهلاك الطاقة في عمليات التحلية."
+  ],
+  targetTitle: "الفئة المستهدفة",
+  target: "مشغلو محطات التحلية بالتناضح العكسي، والمساعدون العاملون في هذه المحطات، والمدربون في تخصصاتهم، والمشغلون في محطات التحلية الحرارية (MED-MSF) المقرر تحويلهم للعمل بمحطات التناضح العكسي.",
+  infoTitle: "معلومات إضافية",
+  comingSoon: "قريبًا!",
+  price: "2,750.00 ر.س",
+  category: "التصنيف: البرامج التطويرية",
+  language: "اللغة: إنجليزي",
+  duration: "المدة: 5 أيام",
+  location: "الموقع: الجبيل",
+  imgAlt: "تقنية التناضح العكسي"
+},
+course6: {
+  title: "تحليل الاهتزازات",
+  shortDesc: "اكتساب المهارات الأساسية في تحليل اهتزازات الآلات، بما يشمل القياس، تفسير البيانات، وتشخيص الأعطال الميكانيكية.",
+  overviewTitle: "المحتويات",
+  overview: "مقدمة في الاهتزازات.\nإعداد أجهزة القياس.\nجمع البيانات وتحليلها.\nالاختلال وعدم المحاذاة والتراخي الميكانيكي.\nمحامل العناصر الدحرجية.\nأعطال التروس والسيور.\nمحركات التيار المتردد.\nالمحامل الانزلاقية.\nالرنين.",
+  outcomesTitle: "المخرجات",
+  outcomes: [
+    "شرح وظيفة وأنواع محاذاة الآلات.",
+    "تحديد أنواع وتقنيات محاذاة الآلات المختلفة.",
+    "تنفيذ جميع أنواع إجراءات محاذاة الآلات.",
+    "أداء وممارسة تصحيح اختلال الآلات.",
+    "تطبيق تدريبات عملية على محاذاة الآلات."
+  ],
+  targetTitle: "المتطلبات",
+  target: "يجب أن يكون المتدرب مشرف ميكانيكي ذو خبرة أو فني صيانة أول حاصل على دبلوم أو شهادة الثانوية العامة. يشترط وجود معرفة أساسية باللغة الإنجليزية.",
+  infoTitle: "معلومات إضافية",
+  comingSoon: "قريبًا!",
+  price: "2,750.00 ر.س",
+  category: "التصنيف: البرامج التطويرية",
+  language: "اللغة: إنجليزي",
+  duration: "المدة: 5 أيام",
+  location: "الموقع: الجبيل",
+  imgAlt: "تحليل الاهتزازات"
+},
+course7: {
+  title: "صيانة أغشية التناضح العكسي",
+  shortDesc: "تدريب المشاركين على أفضل الممارسات لصيانة وتشغيل أغشية التناضح العكسي، وضمان الأداء الأمثل لمحطات المعالجة.",
+  overviewTitle: "نبذة",
+  overview: "تركز هذه الدورة على تدريب المشاركين على أفضل الممارسات لصيانة وتشغيل أغشية التناضح العكسي، مع التعرف على أساليب التنظيف، وإجراءات الوقاية من التكلس والتلوث، وضمان الأداء الأمثل لمحطات المعالجة باستخدام تقنية التناضح العكسي.",
+  outcomesTitle: "المخرجات",
+  outcomes: [
+    "فهم مكونات وأنواع أغشية التناضح العكسي ووظيفتها.",
+    "التعرف على أسباب وأشكال التلوث والتكلس وكيفية الوقاية منها.",
+    "تطبيق تقنيات تنظيف الأغشية بفعالية.",
+    "تطوير برامج صيانة دورية لتحسين عمر الأغشية وأدائها.",
+    "تحليل البيانات والمؤشرات لتحديد المشكلات المتعلقة بالأغشية واتخاذ الإجراءات التصحيحية."
+  ],
+  targetTitle: "الفئة المستهدفة",
+  target: "مهندسو وفنيو التشغيل والصيانة في محطات التناضح العكسي، العاملون في مجال معالجة وتنقية المياه، مشرفو الصيانة والمراقبون الفنيون، الفنيون المسؤولون عن جودة المياه ومعاييرها.",
+  infoTitle: "معلومات إضافية",
+  comingSoon: "قريبًا!",
+  price: "2,750.00 ر.س",
+  category: "التصنيف: البرامج التطويرية",
+  language: "اللغة: إنجليزي",
+  duration: "المدة: 5 أيام",
+  location: "الموقع: الجبيل",
+  imgAlt: "صيانة أغشية التناضح العكسي"
+}
+ },
+    en: {
+      course1: {
+  title: "NFPA 1021 Fire Officer Level 1",
+  shortDesc: "Equip participants with the knowledge and skills required to perform the duties of a Fire Officer Level 1 according to NFPA 1021 standards.",
+  overviewTitle: "Overview",
+  overview: "Equip participants with the knowledge and skills required to perform the duties of a Fire Officer Level 1 according to NFPA 1021 standards, with a focus on leadership, emergency management, and organizing firefighting operations.",
+  outcomesTitle: "Outcomes",
+  outcomes: [
+    "Understand the NFPA 1021 standards and their role in regulating the firefighting profession.",
+    "Develop leadership and supervisory skills in firefighting operations.",
+    "Learn risk assessment techniques and decision-making in emergency situations.",
+    "Master strategies for organizing and directing teams during emergency operations.",
+    "Apply safety and prevention strategies in hazardous work environments."
+  ],
+  targetTitle: "Targeted Audience",
+  target: "Fire officers, team leaders, safety and security managers in organizations, and professionals in the firefighting field.",
+  infoTitle: "Additional Information",
+  comingSoon: "Coming Soon!",
+  price: "2,750.00 SR",
+  category: "Category: Development Programs",
+  language: "Language: English",
+  duration: "Duration: 5 Days",
+  location: "Location: Jubail",
+  imgAlt: "NFPA 1021 Fire Officer Level 1"
+},
+      course2: {
+  title: "NFPA 1081 - Industrial Fire Brigade",
+  shortDesc: "Equip participants with the necessary skills and knowledge to work as members of an industrial fire brigade according to NFPA 1081 standards.",
+  overviewTitle: "Overview",
+  overview: "Equip participants with the necessary skills and knowledge to work as members of an industrial fire brigade, according to NFPA 1081 standards, by developing their abilities to handle fires and other threats in industrial environments.",
+  outcomesTitle: "Outcomes",
+  outcomes: [
+    "Understand the NFPA 1081 standards and their role in regulating industrial fire brigades.",
+    "Develop fire suppression skills in industrial settings.",
+    "Learn techniques for rapid risk assessment and emergency decision-making.",
+    "Train on the use of firefighting equipment and modern techniques for dealing with industrial fires.",
+    "Enhance teamwork abilities and coordination among team members during emergencies."
+  ],
+  targetTitle: "Targeted Audience",
+  target: "Industrial fire brigade members, safety officers in industrial facilities, and industrial operations managers.",
+  infoTitle: "Additional Information",
+  comingSoon: "Coming Soon!",
+  price: "2,750.00 SR",
+  category: "Category: Development Programs",
+  language: "Language: English",
+  duration: "Duration: 5 Days",
+  location: "Location: Jubail",
+  imgAlt: "NFPA 1081 - Industrial Fire Brigade"
+},
+course3: {
+  title: "Global Water Management Program",
+  shortDesc: "Equip participants with knowledge and skills to perform successfully at all management levels, especially in the water sector.",
+  overviewTitle: "Overview",
+  overview: `The Leadership and Management Programs offer knowledge and skills to prepare participants to work and perform successfully at all levels of management, particularly in the water sector. It guides on Leading with Digital, Analytics, and AI Strategy through managerial analysis for maximizing business results. The program emphasizes leadership, globalization, strategy, and applies theory and skills to the international and Saudi business environment.`,
+  outcomesTitle: "Outlines",
+  outcomes: [
+    "Leading with Digital, Analytics and AI Strategy: defining a digital roadmap tailored to the water sector, shifting from command-and-control to empowerment and collaboration, integrating digital strategy with effective team leadership, case study & assessment from the GCC demonstrating successful digital transformation.",
+    "Business Analytics for Managers: strategic imperative of analytics in the GCC water sector, leveraging IoT and real-time data, building an analytics-driven culture with leadership, skills, and change management, case studies, assessments & best practices in business analytics.",
+    "Driving Business Results Through Strategy: setting the strategic landscape with challenges & opportunities in the GCC water sector, managing projects to achieve success, optimizing operational efficiency & sustainability through technology integration, building a future-ready organization with talent, agility & culture transformation, case study & assessment collaborative roadmaps for strategic success."
+  ],
+  targetTitle: "Targeted Audience",
+  target: "Top management level, managers and heads of departments in the water sector, consulting engineers, managers and owners of private and public institutions, and anyone wishing to develop their abilities in this field.",
+  infoTitle: "Additional Information",
+  comingSoon: "Coming Soon!",
+  trainer: `Professor Dr. Naveed Yasin
+Ph.D, CMgr CCMI, PFHEA, M.ED, MSc, C.MGr, ChMC CM, PGCL
+Academic Dean of Business School & Head of Faculty, London South Bank University UAE Academic Centre in association with Habitat Global Partnerships; Full Professor of Entrepreneurship and Management and Director of Abu Dhabi Management Incubator (ADSM)`,
+  time: "8 am to 4 pm",
+  certificate: "CMI",
+  attendees: "25",
+  period: "01-May-2025 to 26-Jun-2025",
+  price: "11,250.00 SR",
+  category: "Global Programs",
+  language: "English",
+  duration: "5 Days",
+  level: "Advance",
+  location: "Riyadh",
+  imgAlt: "Leadership and Management Program"
+},
+course4: {
+  title: "Water Quality of Desalination Plants and Industrial Facilities",
+  shortDesc: "Enhance participants’ skills in water quality analysis and monitoring according to international standards such as ISO 17025.",
+  overviewTitle: "Overview",
+  overview: "Developing trainees' capabilities in analyzing and monitoring water quality in accordance with local and international standards, enhancing their understanding of quality requirements such as ISO 17025, and empowering them to utilize modern tools and techniques to ensure the accuracy and efficiency of results, while applying best practices in data management within research and development laboratories.",
+  outcomesTitle: "Outcomes",
+  outcomes: [
+    "Analyze quality control and interpret ISO 17025 requirements and proficiency testing.",
+    "Differentiate tasks that ensure the delivery of high-quality and reliable results.",
+    "Identify responsibilities related to water quality control and assurance programs.",
+    "Ensure the quality and validity of samples subjected to analysis.",
+    "Describe methods for analyzing drinking water quality and approved standards.",
+    "Explain devices used to present chemical water analysis results.",
+    "Interpret water quality control analysis results and evaluate chemical result efficiency.",
+    "Use tables to assess the accuracy and efficiency of analytical results.",
+    "Manage data across research and development laboratories."
+  ],
+  targetTitle: "Targeted Audience",
+  target: "Quality and control specialists in water analysis laboratories, engineers and professionals in water treatment and quality assurance, technicians in R&D labs, project managers and supervisors in water quality assurance, students and graduates in environmental engineering, chemistry, and water sciences, public health and regulatory staff, and water treatment companies seeking process improvement and standards compliance.",
+  infoTitle: "Additional Information",
+  comingSoon: "Coming Soon!",
+  price: "2,750.00 SR",
+  category: "Category: Development Programs",
+  language: "Language: English",
+  duration: "Duration: 5 Days",
+  location: "Location: Jubail",
+  imgAlt: "Water Quality of Desalination Plants and Industrial Facilities"
+},
+course5: {
+  title: "Reverse Osmosis Technology",
+  shortDesc: "Understand the fundamentals of water desalination using Reverse Osmosis (RO) technology, including membrane techniques, system components, and efficiency optimization.",
+  overviewTitle: "Overview",
+  overview: "Upon completing this program, trainees will be able to describe and discuss the functions of all sections of a reverse osmosis (RO) plant and explain the principles of water desalination.",
+  outcomesTitle: "Outcomes",
+  outcomes: [
+    "Evaluate the principles of Reverse Osmosis and its application in water desalination, considering factors such as water quality, membrane selection, and energy efficiency.",
+    "Analyze the fundamental concepts of osmosis and explain how they relate to the Reverse Osmosis process for water treatment.",
+    "Compare different types of membranes used in Reverse Osmosis systems, considering their characteristics, performance, and suitability for desalination applications.",
+    "Design a pretreatment filtration system for feed water in a Reverse Osmosis plant, focusing on factors such as particle removal, scaling prevention, and membrane protection.",
+    "Assess the importance of energy recovery devices in improving the efficiency and sustainability of Reverse Osmosis plants and suggest ways to optimize energy usage in water desalination processes."
+  ],
+  targetTitle: "Targeted Audience",
+  target: "RO desalination plant local operators, RO auxiliary operators working in RO plants, instructors in their respective specialties, and MED-MSF desalination local operators to be assigned as RO desalination plant local operators.",
+  infoTitle: "Additional Information",
+  comingSoon: "Coming Soon!",
+  price: "2,750.00 SR",
+  category: "Category: Development Programs",
+  language: "Language: English",
+  duration: "Duration: 5 Days",
+  location: "Location: Jubail",
+  imgAlt: "Reverse Osmosis Technology"
+},
+course6: {
+  title: "Vibration Analysis",
+  shortDesc: "Gain essential skills in vibration analysis for machinery, covering measurement, data interpretation, and diagnosing mechanical issues.",
+  overviewTitle: "Outlines",
+  overview: "Introduction to vibration.\nMeasurement setup.\nData collection & Data analysis.\nImbalance & Misalignment, Mechanical looseness.\nRolling element bearings.\nGear defects, Belt defects.\nAC induction motors.\nSliding Bearings.\nResonance.",
+  outcomesTitle: "Outcomes",
+  outcomes: [
+    "Explain the function and types of machine alignment.",
+    "Identify the different types and techniques of machine alignment.",
+    "Implement all types of machine alignment procedures.",
+    "Perform and practice fixing machine misalignment.",
+    "Apply hands-on exercises in machine alignment."
+  ],
+  targetTitle: "Prerequisite",
+  target: "Trainee must be an experienced mechanical foreman or senior maintenance technician with a diploma or high school qualification. Basic knowledge of English is required.",
+  infoTitle: "Additional Information",
+  comingSoon: "Coming Soon!",
+  price: "2,750.00 SR",
+  category: "Category: Development Programs",
+  language: "Language: English",
+  duration: "Duration: 5 Days",
+  location: "Location: Jubail",
+  imgAlt: "Vibration Analysis"
+},
+course7: {
+  title: "RO Membrane Maintenance",
+  shortDesc: "Train participants on best practices for RO membrane maintenance and ensure optimal plant performance.",
+  overviewTitle: "Overview",
+  overview: "This course trains participants on best practices for maintaining and operating reverse osmosis (RO) membranes, covering cleaning techniques, scaling and fouling prevention procedures, and ensuring optimal performance of treatment plants utilizing RO technology.",
+  outcomesTitle: "Outcomes",
+  outcomes: [
+    "Understand the components, types, and functions of reverse osmosis membranes.",
+    "Identify the causes and forms of fouling and scaling, and methods of prevention.",
+    "Apply effective membrane cleaning techniques.",
+    "Develop routine maintenance programs to enhance membrane lifespan and performance.",
+    "Analyze data and indicators to diagnose membrane issues and take corrective actions."
+  ],
+  targetTitle: "Targeted Audience",
+  target: "Engineers and technicians in RO plant operations and maintenance, professionals in water treatment and purification, maintenance supervisors and technical inspectors, technicians responsible for water quality and standards.",
+  infoTitle: "Additional Information",
+  comingSoon: "Coming Soon!",
+  price: "2,750.00 SR",
+  category: "Category: Development Programs",
+  language: "Language: English",
+  duration: "Duration: 5 Days",
+  location: "Location: Jubail",
+  imgAlt: "RO Membrane Maintenance"
+}
+    }
+  };
+let currentLang = 'ar';
+
+  function updateCourseLanguage(lang) {
+    const data = courseData[lang];
+    currentLang = lang;
+
+    ['course1', 'course2','course3','course4','course5','course6','course7'].forEach(id => {
+      document.getElementById(id + 'Title').innerText = data[id].title;
+      document.getElementById(id + 'ShortDesc').innerText = data[id].shortDesc;
+      document.getElementById(id + 'Img').alt = data[id].imgAlt;
+    });
+  }
+
+  function openCourseDetails(courseId) {
+    const course = courseData[currentLang][courseId];
+    document.getElementById('modalCourseTitle').innerText = course.title;
+    document.getElementById('modalOverviewTitle').innerText = course.overviewTitle;
+    document.getElementById('modalOverview').innerText = course.overview;
+    document.getElementById('modalOutcomesTitle').innerText = course.outcomesTitle;
+
+    const ul = document.getElementById('modalOutcomesList');
+    ul.innerHTML = '';
+    course.outcomes.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+
+    document.getElementById('modalTargetTitle').innerText = course.targetTitle;
+    document.getElementById('modalTarget').innerText = course.target;
+    document.getElementById('modalInfoTitle').innerText = course.infoTitle;
+    document.getElementById('modalComingSoon').innerText = course.comingSoon;
+    document.getElementById('modalPrice').innerText = course.price;
+    document.getElementById('modalCategory').innerText = course.category;
+    document.getElementById('modalLanguage').innerText = course.language;
+    document.getElementById('modalDuration').innerText = course.duration;
+    document.getElementById('modalLocation').innerText = course.location;
+
+    document.querySelector('#courseDetailsModal .modal-content').style.direction = (currentLang === 'ar') ? 'rtl' : 'ltr';
+    document.getElementById('courseDetailsModal').style.display = 'flex';
+  }
+
+  function closeCourseDetails(e) {
+    if (!e || e.target.id === 'courseDetailsModal' || e.target.classList.contains('close-btn')) {
+      document.getElementById('courseDetailsModal').style.display = 'none';
+    }
+  }
+
+  function showLoading(lang) {
+    const loadingScreen = document.getElementById('loading-screen');
+    const loadingText = document.getElementById('loading-text');
+    loadingText.innerText = (lang === 'en') ? 'Loading...' : '...جاري التحميل';
+    loadingScreen.classList.remove('hidden');
+  }
+
+  function hideLoading() {
+    document.getElementById('loading-screen').classList.add('hidden');
+  }
+
+  function changeLanguage(lang) {
+    showLoading(lang);
+    localStorage.setItem('language', lang);
+
+    setTimeout(() => {
+      const isArabic = (lang === 'ar');
+      document.getElementById('programsTitle').innerText = isArabic ? '' : '';
+      document.getElementById('availablePrograms').innerText = isArabic ? ':البرامج المتاحة' : 'Available Programs:';
+      document.querySelector('.back-button').innerText = '←';
+      updateCourseLanguage(lang);
+      hideLoading();
+    }, 500);
+  }
+
+  window.onload = () => {
+    const savedLang = localStorage.getItem('language') || 'ar';
+    showLoading(savedLang);
+    changeLanguage(savedLang);
+    setTimeout(hideLoading, 500);
+  };
+</script>
+</body>
+</html>
